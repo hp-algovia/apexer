@@ -1,22 +1,21 @@
 import type { Metadata } from 'next'
 import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
-import { Hero } from '../components/home/Hero'
-import { DoubleRupture } from '../components/home/DoubleRupture'
-import { EnqueteFondatrice } from '../components/home/EnqueteFondatrice'
-import { Programmes } from '../components/home/Programmes'
-import { ForgeEnVrai } from '../components/home/ForgeEnVrai'
-import { Temoignages } from '../components/home/Temoignages'
-import { PortesSecondaires } from '../components/home/PortesSecondaires'
-import { Fondateur } from '../components/home/Fondateur'
-import { Finale } from '../components/home/Finale'
+import { HeroManifeste } from '../components/home/HeroManifeste'
+import { Observations } from '../components/home/Observations'
+import { Manifeste } from '../components/home/Manifeste'
+import { Rythme } from '../components/home/Rythme'
+import { Produits } from '../components/home/Produits'
+import { ComingSoon } from '../components/home/ComingSoon'
+import { Pionniers } from '../components/home/Pionniers'
+import { DernierPunch } from '../components/home/DernierPunch'
 
 const SITE_URL = 'https://apexer.fr'
 
 export const metadata: Metadata = {
-  title: 'APEXER — La méthode des top performers commerciaux français',
+  title: 'APEXER — Le système des top performers commerciaux',
   description:
-    'Pendant deux ans, nous avons enquêté sur les commerciaux qui surperforment durablement en France. 16 profils, 7 pratiques convergentes. APEXER les a transformées en système reproductible — et les déploie sur 130 bassins économiques à travers un réseau de Maîtres-Forgerons Fondateurs.',
+    'APEXER installe chez vous le système des top performers commerciaux français. Décortiqué pendant 2 ans. Tenu chaque mois par un Bâtisseur sur votre territoire.',
   alternates: { canonical: '/' },
 }
 
@@ -26,9 +25,9 @@ const organizationLd = {
   name: 'APEXER',
   legalName: 'KAHP SAS',
   url: SITE_URL,
-  logo: `${SITE_URL}/logo.png`,
+  logo: `${SITE_URL}/logo-apexer.png`,
   description:
-    "Infrastructure nationale française pour la performance commerciale durable. Méthodologie issue de l'observation des 16 top performers commerciaux français, déployée à travers un réseau de Maîtres-Forgerons Fondateurs.",
+    "L'infrastructure de la performance commerciale et humaine durable. Système issu de 2 années d'observation des top performers commerciaux français, déployé à travers un réseau de Bâtisseurs.",
   founder: {
     '@type': 'Person',
     name: 'Henri-Pierre Ouhibi',
@@ -43,11 +42,6 @@ const websiteLd = {
   name: 'APEXER',
   url: SITE_URL,
   inLanguage: 'fr-FR',
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: `${SITE_URL}/journal?q={search_term_string}`,
-    'query-input': 'required name=search_term_string',
-  },
 }
 
 const offerCatalogLd = {
@@ -58,28 +52,32 @@ const offerCatalogLd = {
   itemListElement: [
     {
       '@type': 'Offer',
-      name: 'CONNECT',
-      url: `${SITE_URL}/connect`,
-      price: '49',
-      priceCurrency: 'EUR',
-      description:
-        'Le programme digital d’entrée. Modules vidéo, Scoreboard quotidien, communauté privée. Pour démarrer seul, à votre rythme.',
-    },
-    {
-      '@type': 'Offer',
       name: 'FORGE',
       url: `${SITE_URL}/forge`,
-      price: '129',
+      price: '89',
       priceCurrency: 'EUR',
-      description:
-        'Le programme central. Forge hebdomadaire animée par un Maître-Forgeron certifié.',
+      description: "Le rythme APEXER mensuel installé chez vous. 89€/mois, 1 mois d'essai.",
     },
     {
       '@type': 'Offer',
-      name: 'APEX',
-      url: `${SITE_URL}/apex`,
+      name: 'APEX MONT BLANC',
+      url: `${SITE_URL}/apex/mont-blanc`,
+      price: '399',
       priceCurrency: 'EUR',
-      description: 'La trilogie de progression structurée. MONT BLANC · KILIMANDJARO · HIMALAYA.',
+    },
+    {
+      '@type': 'Offer',
+      name: 'APEX KILIMANDJARO',
+      url: `${SITE_URL}/apex/kilimandjaro`,
+      price: '699',
+      priceCurrency: 'EUR',
+    },
+    {
+      '@type': 'Offer',
+      name: 'APEX HIMALAYA',
+      url: `${SITE_URL}/apex/himalaya`,
+      price: '1499',
+      priceCurrency: 'EUR',
     },
   ],
 }
@@ -95,17 +93,14 @@ export default function HomePage() {
       />
       <Header />
       <main>
-        <Hero />
-        <DoubleRupture />
-        <EnqueteFondatrice />
-        <section id="programmes">
-          <Programmes />
-        </section>
-        <ForgeEnVrai />
-        <Temoignages />
-        <PortesSecondaires />
-        <Fondateur />
-        <Finale />
+        <HeroManifeste />
+        <Observations />
+        <Manifeste />
+        <Rythme />
+        <Produits />
+        <ComingSoon />
+        <Pionniers />
+        <DernierPunch />
       </main>
       <Footer />
     </>

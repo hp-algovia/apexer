@@ -1,11 +1,17 @@
 import { cn } from '@apexer/ui'
 import type { HTMLAttributes } from 'react'
 
-export function Eyebrow({ className, children, ...props }: HTMLAttributes<HTMLSpanElement>) {
+export function Eyebrow({
+  className,
+  children,
+  tone = 'orange',
+  ...props
+}: HTMLAttributes<HTMLSpanElement> & { tone?: 'orange' | 'white' }) {
   return (
     <span
       className={cn(
-        'text-gold inline-block font-sans text-sm font-bold uppercase tracking-[0.14em]',
+        'font-body inline-block text-sm font-medium uppercase tracking-[0.18em]',
+        tone === 'orange' ? 'text-orange' : 'text-white/90',
         className,
       )}
       {...props}

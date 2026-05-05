@@ -4,12 +4,14 @@ import './globals.css'
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
   variable: '--font-dm-sans',
   display: 'swap',
 })
 
 const inter = Inter({
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-inter',
   display: 'swap',
 })
@@ -17,12 +19,12 @@ const inter = Inter({
 const SITE_URL = 'https://apexer.fr'
 const SITE_NAME = 'APEXER'
 const SITE_DESCRIPTION =
-  'Pendant deux ans, nous avons enquêté sur les commerciaux qui surperforment durablement en France. 16 profils, 7 pratiques convergentes. APEXER les a transformées en système reproductible — et les déploie sur 130 bassins économiques à travers un réseau de Maîtres-Forgerons Fondateurs.'
+  'APEXER installe chez vous le système des top performers commerciaux français. Décortiqué pendant 2 ans. Tenu chaque mois par un Bâtisseur sur votre territoire.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'APEXER — La méthode des top performers commerciaux français',
+    default: 'APEXER — Le système des top performers commerciaux',
     template: '%s · APEXER',
   },
   description: SITE_DESCRIPTION,
@@ -33,11 +35,11 @@ export const metadata: Metadata = {
   keywords: [
     'performance commerciale',
     'top performers',
-    'formation commerciale',
-    'Maître-Forgeron',
     'Forge APEXER',
-    'commerce B2B',
-    'sales enablement',
+    'Bâtisseur',
+    'formation commerciale',
+    'recommandabilité',
+    'Cercle des Pionniers',
   ],
   alternates: { canonical: '/' },
   openGraph: {
@@ -45,7 +47,7 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: SITE_NAME,
     locale: 'fr_FR',
-    title: 'APEXER — La méthode des top performers commerciaux français',
+    title: 'APEXER — Le système des top performers commerciaux',
     description: SITE_DESCRIPTION,
     images: [
       {
@@ -58,7 +60,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'APEXER — La méthode des top performers commerciaux français',
+    title: 'APEXER — Le système des top performers commerciaux',
     description: SITE_DESCRIPTION,
     images: ['/og-default.png'],
   },
@@ -72,7 +74,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={`${dmSans.variable} ${inter.variable}`}>
-      <body className="bg-light text-navy font-sans antialiased">{children}</body>
+      <body className="font-body text-charbon bg-white antialiased">{children}</body>
     </html>
   )
 }
