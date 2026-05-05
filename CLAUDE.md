@@ -15,6 +15,7 @@ Mais parce qu'ils le font qu'ils sont les meilleurs. »
 **Slogan opérationnel** : « Arrêtez de compter sur la motivation. Installez un système. »
 
 L'écosystème comprend :
+
 - 1 site public (apexer.fr) — vitrine + tunnels commerciaux
 - 1 application (app.apexer.fr) — espace Forgeron + espace Maître-Forgeron + admin
 - 8 programmes pédagogiques (CONNECT, FORGE, APEX MONT BLANC / KILIMANDJARO / HIMALAYA, TEAM, YOUNG, FORGERON)
@@ -35,6 +36,7 @@ Il pilote par objectifs, valide les résultats, ne lit pas le code en détail.
 - Tu n'attends pas son OK avant chaque action — tu enchaînes, tu commits, tu push, tu lui montres l'URL preview à la fin.
 
 **Ce qu'HP veut voir à la fin d'une session :**
+
 - Une URL de preview Vercel qui marche
 - Un récap court (5-10 lignes max) de ce qui a été fait
 - La liste des choix techniques significatifs que tu as pris (sans demander confirmation, juste pour info)
