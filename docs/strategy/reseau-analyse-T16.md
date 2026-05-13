@@ -1,98 +1,161 @@
-# Analyse réseau APEXER — T-16 semaines
+# Le Réseauteur prend la parole
+## Analyse réseau APEXER — T-16 semaines (13 mai 2026)
 
-**Date** : 13 mai 2026
-**Horizon** : 16 semaines (lancement 1er septembre 2026)
-**Auteur** : Le Réseauteur (agent stratégique APEXER)
-**Statut** : Analyse solo, pas de table ronde en cours
+Invocation solo. Pas de table ronde en cours.
 
 ---
 
-## Le Réseauteur prend la parole
-
-Ce que je vois sur le réseau APEXER aujourd'hui, c'est une **canalisation neuve, sèche, sans débit**. Le tuyau est posé (marque, produits, modèle économique). Aucun litre d'eau n'a encore coulé dedans. HP est seul à la pompe. T-16 semaines, c'est court pour amorcer, et trop long pour rester en silence — il faut commencer à mouiller le tuyau dès cette semaine, sinon il sera rouillé le 1er septembre.
-
 ### 1. Diagnostic réseau (état actuel)
 
-**Constats chiffrés, sans broderie :**
+Ce que je vois sur le réseau APEXER aujourd'hui, c'est **un tuyau vide avec une vanne fermée**. Pas un robinet qui goutte, pas un réservoir bas — un système entièrement à sec. Soyons précis sur ce que ça veut dire :
 
-- **Bâtisseurs signés** : 0 / 30 objectif Pionniers → **0% de l'objectif T-16**
-- **Forgerons actifs** : 0 → pas de base de parrainage activable
-- **Forges ouvertes** : 0 → 0 connexion inter-Forges possible par définition
-- **Nœud central unique** : HP, seul fondateur. Single point of failure absolu.
-- **Capital réseau pré-existant non cartographié** : je ne connais pas le carnet d'adresses d'HP (KAHP SAS, DILLAN, lectorat "VIAGER — 50 questions essentielles"). **HYPOTHÈSE MANQUANTE** — je ne peux pas chiffrer le pool tiède de candidats Bâtisseurs sans cette donnée. À fournir avant tout plan opérationnel sérieux.
-- **Densité relationnelle** : non mesurable (aucun nœud secondaire).
-- **Boucles virales actives** : 0. Le programme de parrainage est défini sur le papier (1 mois FORGE offert par filleul) mais il faut au minimum **un Forgeron actif pour parrainer un filleul**, donc la mécanique est dormante jusqu'au 1er septembre.
+- **Bâtisseurs signés : 0 / 30** (objectif Cercle des Pionniers, fermeture 31 août 2026)
+- **Forgerons actifs : 0**
+- **Forges opérationnelles : 0**
+- **Nœuds humains réels du réseau : 1** — HP seul, fondateur unique.
+- **Densité relationnelle inter-membres : 0**. Aucune connexion à entretenir, aucun rite à activer.
+- **Temps restant avant lancement public (1er septembre 2026) : 16 semaines = 112 jours**
+- **Temps restant avant fermeture du Cercle des Pionniers : 110 jours**
 
-**Rythme requis pour tenir l'objectif** : 30 Bâtisseurs en 16 semaines = **1,875 signature/semaine en moyenne**. Pas 30 sur la semaine 15. La cadence doit s'amorcer maintenant — sinon c'est mathématiquement mort en juillet.
+Traduction hydraulique : on n'est pas en train d'optimiser un débit, on est en train de **poser les premières canalisations à la main**. Tout ce que je vais dire en aval repose là-dessus : **APEXER n'a pas encore de réseau, APEXER a un fondateur et un manifeste**. C'est radicalement différent et ça change la méthode.
 
-**Risque immédiat** : confondre "intérêt manifesté" et "Bâtisseur signé". Un Bâtisseur signé = **3 500€ encaissés OU contrat de certification signé avec engagement de paiement échelonné**. Pas une candidature, pas un appel téléphonique sympa.
+**Hypothèses que je n'ai pas et qu'il me faut pour affiner** (je ne brode pas — je liste) :
+
+- Combien de personnes HP a-t-il **déjà approchées** personnellement comme Bâtisseurs potentiels ? (carnet KAHP SAS, lecteurs VIAGER, réseau DILLAN)
+- Combien de **conversations chaudes en cours** (signature dans les 30 jours plausibles) ?
+- Quelle est la **liste email actuelle** (lecteurs VIAGER, contacts pro HP) ? 200 contacts ? 2 000 ? 20 000 ?
+- Y a-t-il déjà un **canal de pré-inscription** (newsletter, formulaire) qui capture des intentions ?
+- HP a-t-il **5-10 personnes-relais** (anciens collaborateurs, top performers commerciaux qu'il a coachés) prêtes à lui ouvrir leur carnet ?
+
+**Si toutes ces réponses sont à zéro, le scénario 30 Bâtisseurs en 16 semaines est techniquement faisable mais demande une discipline d'acquisition individuelle quasi-militaire** (cf. section 4).
+
+---
 
 ### 2. Nœuds critiques et nœuds manquants
 
-**Nœud unique actuel** :
-- **HP** — tient 100% du réseau. S'il tombe malade 3 semaines en juin, le projet décale de 3 mois.
+#### Le seul nœud critique aujourd'hui : HP
 
-**Nœuds à recruter d'urgence (les 5 premiers Bâtisseurs Pionniers ne sont pas des clients — ce sont des co-fondateurs de réseau)** :
+Tout le réseau APEXER tient sur **une seule personne** pendant les 16 prochaines semaines. C'est à la fois la force (cohérence absolue du message) et la fragilité maximale (s'il tombe malade 3 semaines, le projet recule de 3 semaines). À T-16, c'est acceptable. À T-0, ce sera **inacceptable**.
 
-1. **Le Bâtisseur Lyon / Bâtisseur Paris #1** — l'ami commercial de longue date d'HP. Quelqu'un qui dit oui par confiance personnelle, pas par étude de marché. Recruté en mai-juin.
-2. **Le Bâtisseur "industrie"** — un commercial reconnu dans pharma OU automobile OU immobilier qui apporte sa propre légitimité sectorielle. Recruté en juin.
-3. **Le Bâtisseur "média"** — celui qui a une audience LinkedIn 10k+ ou un podcast/newsletter. Sa Forge servira de vitrine éditoriale. Recruté en juin-juillet.
-4. **Le Bâtisseur "événement"** — quelqu'un qui sait remplir une salle de 30 personnes en 10 jours. Apporte l'infrastructure de l'atelier samedi. Recruté en juillet.
-5. **Le Bâtisseur "ancien client KAHP/DILLAN"** — quelqu'un qui a déjà acheté à HP. Boucle la preuve sociale fondateur → Bâtisseur. Recruté en mai.
+#### Les 4 catégories de nœuds qui manquent et qu'il faut câbler dans cet ordre
 
-**Nœuds secondaires manquants** (pas Bâtisseurs, mais essentiels au réseau) :
-- **1 "ange parrain" non-Bâtisseur** : figure tutélaire qui parle d'APEXER sans être dedans (auteur, dirigeant respecté). Pas pour témoigner — la règle d'honnêteté l'interdit. Pour ouvrir des portes en off.
-- **1 community manager opérationnel** (pas d'HP) : la tenue du fil quotidien WhatsApp/Slack des Pionniers ne peut PAS être HP. Il est le fondateur, pas l'animateur du chat.
+**a) Nœud n°1 — Le Bâtisseur "preuve de concept" (à signer avant le 31 mai 2026, soit 18 jours)**
 
-**Test de tenue du réseau** : si HP s'absente 2 semaines en août, est-ce que les 5 premiers Bâtisseurs continuent de discuter entre eux ? Si non → ce ne sont pas des Bâtisseurs, ce sont des clients passifs.
+Un seul Bâtisseur signé, idéalement quelqu'un du carnet personnel d'HP, sur Paris ou Lyon (densité commerciale max). Ce premier nom :
+
+- Sert de **témoignage authentique** dans tous les pitchs suivants ("Untel a signé, voici pourquoi")
+- Brise le **vide social** qui fait que personne ne veut être le premier
+- Devient **co-recruteur de fait** des 5 suivants
+
+Sans ce nœud-là dans les 3 prochaines semaines, le pipeline des 29 autres devient mécaniquement plus lourd. **C'est le seul vrai goulet d'étranglement actuel.**
+
+**b) Nœud n°2 — Les "connecteurs sectoriels" (3 à 5 personnes, à câbler avant le 30 juin)**
+
+Pas des Bâtisseurs forcément, des **introducteurs**. Une personne par secteur cible (auto, immo, pharma, SaaS, B2B services). Quelqu'un qui n'a pas le temps d'animer une Forge mais qui connaît 20 commerciaux top niveau et qui accepte de faire 3 introductions chaudes par mois en échange d'un statut "Ambassadeur fondateur" (atelier offert, accès APEX Mont Blanc à prix coûtant, mention dans le Cercle élargi).
+
+**c) Nœud n°3 — Le "rédacteur de la preuve" (à activer dès cette semaine)**
+
+Quelqu'un — HP ou un tiers — qui **documente publiquement** la genèse APEXER en temps réel sur LinkedIn : "T-16 semaines, je cherche 30 Bâtisseurs, voici les 5 observations issues de 2 ans d'observation des top performers." LinkedIn est, pour la cible 25-55 ans commerciale française, **le seul tuyau d'acquisition organique gratuit qui marche encore en 2026**. Pas d'Instagram, pas de TikTok, pas de pub Meta au lancement. LinkedIn, point.
+
+**d) Nœud n°4 — Le "premier Forgeron-témoin" (à activer mi-juillet)**
+
+Avant même le lancement public, identifier 3-5 commerciaux volontaires qui font une **Forge pilote** gratuite en juillet-août avec HP en direct. Ils ne paient pas, mais ils s'engagent à donner un témoignage authentique factuel utilisable au lancement. Pas inventé : vécu.
+
+#### Le nœud qu'on n'a PAS besoin de câbler maintenant
+
+Toute personnalité publique, influenceur, célébrité commerciale. **Coût d'acquisition disproportionné, faible conversion réelle, risque réputationnel**. APEXER se construit par densité relationnelle, pas par notoriété empruntée.
+
+---
 
 ### 3. Risques de fragmentation
 
-À T-16, il n'y a pas encore de Forge → pas encore de fragmentation possible. **Les risques sont prospectifs**, à neutraliser dès la conception :
+À 0 Bâtisseur, il n'y a pas encore d'îlots — mais les risques se construisent **maintenant**, dans la façon dont les premiers Bâtisseurs vont être recrutés. Voici les 4 pièges réseau que je vois venir :
 
-1. **Risque "îlots géographiques"** — Si les 5 premiers Bâtisseurs sont tous en Île-de-France, on a une étoile parisienne sans tissu national. Si les 5 sont chacun dans une ville différente sans rituel commun, on a 5 PME indépendantes franchisées, pas un réseau. → **Imposer un rituel mensuel inter-Bâtisseurs en visio dès le mois 1 de Pionniers.**
+**Risque A — La "Forge solitaire" géographique.** Si les 30 Bâtisseurs Pionniers sont 25 sur Paris, 3 sur Lyon, 2 sur Marseille, et personne ailleurs, on aura 5 Forges qui se parlent (Paris) et 5 Forges déconnectées (province). **Règle à poser dès maintenant** : pas plus de 30% des Bâtisseurs Pionniers sur une même métropole. Quitte à différer une signature parisienne pour favoriser un Bâtisseur Toulousain ou Nantais.
 
-2. **Risque "Bâtisseur solo-entrepreneur"** — Un Bâtisseur qui voit sa Forge comme son business à lui, déconnecté des autres. Avec un split 80% à 100+ Forgerons, l'incitation économique pousse à se replier sur sa Forge, pas à connecter les Forgerons d'autres Forges. → **Créer une prime "connecteur inter-Forges"** (à définir : ex. 50€ par Forgeron qu'un Bâtisseur envoie en APEX event d'un autre Bâtisseur).
+**Risque B — Le "vase clos sectoriel".** Si les 30 Bâtisseurs sont tous dans l'immo et l'auto (les secteurs les plus chauds pour ce genre de programme), APEXER devient "le truc des vendeurs de voitures et d'apparts". **Imposer une diversité sectorielle** : minimum 4 secteurs représentés dans les 30 Pionniers.
 
-3. **Risque "Forge fantôme"** — Un Bâtisseur signe à 3500€ mais ne recrute pas de Forgerons dans les 90 jours après le lancement. Sa Forge devient un trou noir. → **Clause contractuelle de minimum activité** (ex. 10 Forgerons à 90 jours, sinon revue obligatoire avec HP).
+**Risque C — La "dépendance HP".** Si chaque Bâtisseur est recruté individuellement par HP en 1:1, ils auront tous une relation **bilatérale avec HP, pas latérale entre eux**. Réseau en étoile = mort dès qu'HP s'absente. **Antidote** : dès le 5e Bâtisseur signé, organiser un **dîner mensuel des Pionniers** (présentiel obligatoire, Paris ou rotation). Le premier dîner doit avoir lieu avant fin juin 2026.
 
-4. **Risque "vase clos Pionniers"** — Les 30 Pionniers se connaissent tellement bien entre eux qu'ils deviennent imperméables aux Bâtisseurs de la "deuxième vague" en 2027. La cooptation peut se transformer en club fermé. → **Acter dès maintenant** que les 30 Pionniers seront mentors obligatoires des Bâtisseurs vagues 2, avec rituel formel de passation.
+**Risque D — Le "Bâtisseur fantôme".** Quelqu'un qui paie les 3 500€ de certification mais ne lance jamais sa Forge. Si on en a 5 sur 30, on a perdu 17% du réseau actif au lancement. **Antidote** : conditionner la 2e moitié du paiement à l'ouverture effective de la Forge, ou rembourser partiellement si abandon dans les 60 jours. À discuter avec apexer-bizdev.
 
-5. **Risque "fuite avant l'eau"** — Un Bâtisseur Pionnier signe en mai, désengage en juillet faute de communauté tangible. Le tuyau fuit avant d'être en charge. → **Rituel hebdomadaire dès la 2e signature** (cf. levier 1 ci-dessous).
+---
 
-### 4. Leviers concrets — 16 prochaines semaines
+### 4. Leviers concrets — 90 prochains jours (13 mai → 13 août 2026)
 
-Cinq actions datées, chiffrées, responsabilisées. Je nomme HP par défaut faute d'autre humain dans le projet — chaque ligne où HP est responsable est une dépendance critique à déléguer dès qu'un Bâtisseur #1 est signé.
+Cinq actions, datées, chiffrées, avec un responsable. Pas de promesse vague.
 
-| # | Levier | Mécanique | Calendrier | Responsable | KPI succès |
-|---|--------|-----------|------------|-------------|------------|
-| 1 | **Rituel hebdo "Forge des Pionniers"** | Visio 60 min chaque jeudi 19h, dès la 2e signature Bâtisseur. HP anime, agenda fixe (15 min news projet, 30 min un Bâtisseur partage son terrain, 15 min Q&A). Pas de replay. La présence physique vaut adhésion. | Démarrage semaine du Bâtisseur #2 signé (objectif : semaine du 25 mai 2026) | HP jusqu'à Bâtisseur #5, puis tournante | Taux de présence ≥ 80% / semaine |
-| 2 | **Liste tiède 100 noms** | HP extrait de son carnet (KAHP, DILLAN, VIAGER, LinkedIn) **100 noms qualifiés** comme candidats Bâtisseurs potentiels. Tableur Notion : nom, ville, secteur, niveau de chaleur (1-5), date dernier contact. Aucun message envoyé tant que la liste n'est pas complète. | Liste finalisée d'ici **vendredi 22 mai 2026** | HP | 100 noms saisis, 30 cotés ≥ 4/5 |
-| 3 | **Tournée "5 dîners fondateurs"** | 5 dîners physiques (4-6 invités par dîner, choisis dans la liste tiède) entre **1er juin et 15 juillet 2026**. Pas de pitch slide. HP raconte le projet pendant 20 min, puis écoute. Objectif : 1 signature Bâtisseur Pionnier par dîner en moyenne. | 5 dîners, calendrier verrouillé d'ici le 30 mai | HP | 5 dîners tenus, 4 Bâtisseurs signés cumulés à fin juillet |
-| 4 | **Lettre fondatrice hebdomadaire** | Email perso (pas newsletter pro), envoyé chaque lundi 9h à la liste tiède (100 noms) + Bâtisseurs signés. 600-800 mots. Une seule règle : raconter ce qui s'est passé la semaine précédente, sans hype. Honnêteté absolue (cf. règle CLAUDE.md §13). Pas de "X/30 places prises" tant que la donnée n'est pas vraie ; on peut écrire "j'en suis à N signatures, voici qui ils sont (avec accord)". | Lancement lundi 18 mai 2026 (cette semaine) | HP | Taux d'ouverture ≥ 50%, ≥ 5 réponses/semaine |
-| 5 | **Carte du réseau visible** | Page interne (Notion ou page protégée du site) accessible aux Bâtisseurs signés uniquement, affichant en temps réel : qui sont les Pionniers, leur ville, leur secteur, leurs spécialités. Démarre à 1 carte (HP), grandit à chaque signature. Rend visible la densité au lieu de la déclarer. | Page créée semaine du 18 mai, prête pour Bâtisseur #1 | HP | Carte mise à jour ≤ 48h après chaque signature |
+#### Levier 1 — La "campagne 30 cafés" (13 mai → 30 juin)
+**Responsable : HP, exclusivement.**
 
-**Ce que je n'inclus pas et pourquoi** :
-- Pas de "campagne Ads LinkedIn" : c'est du recrutement client, pas du recrutement de co-fondateurs réseau. Inutile à T-16.
-- Pas de "programme ambassadeur" : il n'y a personne à activer. On en reparle quand 50 Forgerons existeront.
-- Pas de "partenariats stratégiques" (BNI, French Tech, écoles de commerce) : utile en 2027 pour la vague 2, mais à T-16 c'est de la dispersion d'énergie. Tout doit converger vers les 30 signatures.
+HP bloque **3 créneaux/jour pendant 7 semaines** pour des cafés 1:1 avec des Bâtisseurs potentiels identifiés dans son carnet personnel.
+
+- Volume cible : 60 cafés en 49 jours
+- Taux de conversion réaliste : 15-25% → 9 à 15 Bâtisseurs signés
+- KPI hebdo : minimum 8 cafés/semaine, sinon ralentissement objectivé
+
+**Métaphore hydraulique** : c'est la première mise en pression du tuyau. Pas de magie, pas de scale. Juste de la traction manuelle.
+
+#### Levier 2 — La "série LinkedIn T-16" (à démarrer cette semaine, 14 mai)
+**Responsable : HP + rédacteur tiers si besoin.**
+
+Une publication LinkedIn **tous les 2 jours pendant 16 semaines** (= 56 posts) racontant la construction d'APEXER en temps réel. Pas de teasing marketing. Du factuel :
+
+- Les 5 observations de l'enquête (1 post par observation)
+- Le manifeste fragmenté en 8 idées
+- Les 7 pratiques convergentes (1 post par pratique)
+- Le compte à rebours public : "T-16, T-15, T-14..." avec ce qui a été appris cette semaine
+- Les questions ouvertes : "Si tu animais une Forge sur Bordeaux, qu'est-ce qui te ferait dire oui ou non ?"
+
+**KPI** : 56 posts publiés, 500 abonnés gagnés sur le profil HP, 50 conversations privées générées, 10 cafés Bâtisseurs venus de LinkedIn.
+
+#### Levier 3 — Le "Dîner des Pionniers" (1er dîner fin juin, puis mensuel)
+**Responsable : HP, logistique sous-traitée.**
+
+Dès que **5 Bâtisseurs sont signés**, organiser un dîner physique à Paris (lieu chaud, 12 couverts max, table unique pour forcer la conversation transversale). Objectif : créer la relation **latérale** entre Bâtisseurs avant qu'ils ouvrent leur Forge. Refaire le dîner tous les mois jusqu'au lancement.
+
+**KPI** : 3 dîners avant le 1er septembre 2026. À chaque dîner, mesurer le nombre de **liens directs créés** (Bâtisseur A a échangé son numéro avec Bâtisseur B, C, D = 3 liens). Objectif : densité moyenne de 6 liens/Bâtisseur avant lancement.
+
+#### Levier 4 — Le "Programme Ambassadeur fondateur" (lancement 1er juin)
+**Responsable : HP, support outillage par équipe technique.**
+
+10 places ouvertes pour des Ambassadeurs (non-Bâtisseurs, mais introducteurs sectoriels). Engagement :
+
+- 3 introductions chaudes par mois pendant 4 mois
+- En échange : 1 atelier APEXER offert + tarif fondateur sur APEX Mont Blanc (-40%) + nom mentionné publiquement comme "Ambassadeur du premier cercle"
+
+**KPI** : 10 ambassadeurs signés au 30 juin, 60 introductions générées sur juillet-août, 12 Bâtisseurs signés issus de ces introductions.
+
+#### Levier 5 — La "Forge zéro" en juillet-août (Forge pilote gratuite)
+**Responsable : HP, animation directe.**
+
+Recruter 8 commerciaux pour une **Forge pilote gratuite** en juillet-août. 4 séances réelles, format final. Conditions :
+
+- Gratuit
+- Présence obligatoire aux 4 séances (engagement écrit)
+- Témoignage authentique factuel utilisable sur le site
+
+**KPI** : 8 inscrits, 6 assidus minimum, 6 témoignages exploitables au 1er septembre 2026. **Ce sera la seule preuve sociale honnête qu'APEXER pourra montrer au lancement**. Sans ça, le site est nu.
+
+---
 
 ### 5. KPI réseau à mettre en place dès cette semaine
 
-Pas de MRR, pas de CAC. Du réseau pur. Tableau de bord hebdomadaire, mise à jour chaque dimanche soir par HP (15 min) :
+Pas du business. Du **réseau**. Sept indicateurs, mesurables hebdo, suivis dans un tableau unique (Notion ou Airtable).
 
-| KPI | Définition | Cible T-16 (1 sept) | Mesure |
-|-----|------------|---------------------|--------|
-| **Bâtisseurs signés** | Contrat signé + paiement reçu ou échéancier engagé | 30 | Compteur entier |
-| **Liste tiède active** | Personnes ayant ouvert ≥ 2 lettres fondatrices sur 4 dernières | 50 / 100 | Stat email |
-| **Densité Pionniers** | Nombre moyen d'autres Pionniers qu'un Pionnier a contactés hors rituel hebdo | ≥ 5 à fin août | Sondage mensuel auto-déclaré |
-| **Taux de présence rituel jeudi** | Présents / signés sur la semaine | ≥ 80% | Pointage visio |
-| **Dîners fondateurs tenus** | Dîners physiques réalisés / planifiés | 5 / 5 | Calendrier |
-| **Délai signature** | Jours entre 1er contact et signature | ≤ 30 j en médiane | Tableur |
-| **Taux de cooptation Pionnier→Pionnier** | Bâtisseurs signés ayant été présentés par un autre Bâtisseur Pionnier | ≥ 30% à T-8 (sept) | Question à la signature |
-| **Single point of failure** | Réponse oui/non à : "Si HP est absent 2 semaines, les Pionniers continuent-ils à se parler ?" | Oui d'ici fin juillet | Test grandeur nature |
+| KPI | Mesure | Cible T-16 → T-0 |
+|---|---|---|
+| **Pipeline Bâtisseurs** | Cafés réalisés + en cours | 60 cafés cumulés au 30 juin |
+| **Bâtisseurs signés** | Contrats encaissés (au moins 1er versement) | 5 au 30 juin / 15 au 31 juillet / 30 au 31 août |
+| **Diversité géographique** | Nombre de villes représentées chez Bâtisseurs | Min. 8 villes sur 30 Pionniers |
+| **Diversité sectorielle** | Nombre de secteurs représentés | Min. 4 secteurs sur 30 |
+| **Densité latérale** | Liens directs Bâtisseur ↔ Bâtisseur (numéro échangé, message envoyé) | Moyenne ≥ 6/Bâtisseur au lancement |
+| **Audience LinkedIn HP** | Followers + engagement moyen/post | 500 followers gagnés, 50 commentaires/post |
+| **Introductions Ambassadeurs** | Intros chaudes générées par les Ambassadeurs | 60 intros sur juillet-août |
 
-Le dernier KPI est le plus important. C'est lui qui distingue un réseau d'une mailing list.
+**Le plus important à mes yeux** : la **densité latérale**. Si au 1er septembre on a 30 Bâtisseurs signés mais qu'ils ne se connaissent pas entre eux, on n'a pas un réseau, on a une liste de clients. C'est la différence entre une promo et une promotion.
+
+---
 
 ### 6. Ma réaction aux autres agents
 
@@ -100,19 +163,16 @@ Pas de table ronde en cours — analyse solo.
 
 ---
 
-## Recommandation à exécuter cette semaine (13–19 mai 2026)
+## Recommandation à exécuter cette semaine (13 → 19 mai 2026)
 
-**Une seule chose, livrable vendredi 22 mai au plus tard** :
+**Une seule action, non négociable** :
 
-**Construire la liste tiède des 100 noms** (levier 2 ci-dessus), AVANT toute autre action de communication, AVANT le site, AVANT la première lettre fondatrice.
+**Mardi 14 mai au plus tard, HP publie le post LinkedIn #1 de la série T-16.** Pas un teasing. Un post factuel : "Je suis à 16 semaines du lancement d'APEXER. 0 Bâtisseur signé. Voici ce que je cherche, voici ce que j'offre, voici pourquoi maintenant. Si tu es commercial top 10% dans ton secteur et que tu lis ça, on prend un café."
 
-Pourquoi celle-là et pas une autre :
-1. Sans liste, la lettre du lundi 18 mai n'a pas de destinataire pertinent → elle part en stockphoto.
-2. Sans liste, les 5 dîners de juin sont remplis au hasard → conversion ≤ 10%.
-3. Sans liste, on parle de "30 Bâtisseurs" comme d'un chiffre magique, sans pipeline réel.
+En parallèle, **HP ouvre son agenda et bloque 21 créneaux café de 45 minutes sur les 3 prochaines semaines** (3 par jour, lundi-vendredi). Pas négociable. Si l'agenda HP n'a pas 21 créneaux libres d'ici dimanche soir, c'est que le projet n'est pas prioritaire — et alors aucun levier ci-dessus ne fonctionnera.
 
-**Format imposé** : tableur Notion (ou Airtable), 100 lignes, colonnes : Nom, Prénom, Ville, Secteur, Source (KAHP / DILLAN / VIAGER / LinkedIn / autre), Dernier contact (date), Chaleur (1-5), Pourquoi lui (1 phrase), Action suivante (1 verbe + 1 date).
+**Pourquoi ce levier, et pas un autre, cette semaine ?**
 
-**Critère de complétion** : 100 lignes pleines, 30 personnes cotées ≥ 4/5 sur la chaleur. Si HP n'arrive pas à trouver 30 noms à chaud, c'est l'alerte rouge la plus importante du projet — il faut le savoir cette semaine, pas en août.
+Parce que la canalisation est vide. Tant qu'HP ne s'expose pas publiquement et n'ouvre pas son agenda physiquement, **rien d'autre ne peut être construit**. Pas de Bâtisseur, pas d'ambassadeur, pas de Forge pilote. Tout part de là. Le reste, c'est de l'optimisation de débit sur un tuyau qui n'a pas encore d'eau.
 
-Le tuyau commence à se mouiller quand on connaît le nom des 100 premiers litres d'eau, pas avant.
+Cash, daté, vérifiable dimanche soir : **1 post LinkedIn publié + 21 créneaux café bloqués dans Google Calendar = mission de la semaine accomplie**. Sinon, semaine perdue.
