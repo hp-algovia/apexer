@@ -1,5 +1,4 @@
 import { Container } from '../Container'
-import { Eyebrow } from '../Eyebrow'
 import { FadeIn } from '../FadeIn'
 
 const formats = [
@@ -26,8 +25,7 @@ export function Rythme() {
       <Container className="py-24 md:py-32">
         <FadeIn>
           <div className="max-w-3xl">
-            <Eyebrow>LE RYTHME APEXER</Eyebrow>
-            <h2 className="text-charbon mt-6 font-sans text-4xl font-bold leading-[1.1] tracking-[-0.02em] md:text-5xl">
+            <h2 className="text-charbon font-sans text-4xl font-bold leading-[1.1] tracking-[-0.02em] md:text-5xl">
               Une Forge par mois. Pas de lâche-prise.
             </h2>
           </div>

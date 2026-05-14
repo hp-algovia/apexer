@@ -1,5 +1,4 @@
 import { Container } from '../Container'
-import { Eyebrow } from '../Eyebrow'
 import { Button } from '../Button'
 import { FadeIn } from '../FadeIn'
 
@@ -27,8 +26,7 @@ export function Manifeste() {
       <Container className="py-24 md:py-32">
         <FadeIn>
           <div className="max-w-3xl">
-            <Eyebrow>LE MANIFESTE</Eyebrow>
-            <h2 className="text-charbon mt-6 font-sans text-4xl font-bold leading-[1.1] tracking-[-0.02em] md:text-5xl">
+            <h2 className="text-charbon font-sans text-4xl font-bold leading-[1.1] tracking-[-0.02em] md:text-5xl">
               Ce qu&apos;on installe. Ce qu&apos;on refuse.
             </h2>
           </div>

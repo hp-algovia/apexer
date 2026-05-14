@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { Container } from '../Container'
-import { Eyebrow } from '../Eyebrow'
 import { Button } from '../Button'
 import { FadeIn } from '../FadeIn'
 
@@ -42,8 +41,7 @@ export function Produits() {
       <Container className="py-24 md:py-32">
         <FadeIn>
           <div className="max-w-3xl">
-            <Eyebrow>NOS PROGRAMMES</Eyebrow>
-            <h2 className="text-charbon mt-6 font-sans text-4xl font-bold leading-[1.1] tracking-[-0.02em] md:text-5xl">
+            <h2 className="text-charbon font-sans text-4xl font-bold leading-[1.1] tracking-[-0.02em] md:text-5xl">
               Trouvez votre porte d&apos;entrée.
             </h2>
           </div>

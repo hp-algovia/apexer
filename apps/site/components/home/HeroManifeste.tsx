@@ -1,5 +1,4 @@
 import { Container } from '../Container'
-import { Eyebrow } from '../Eyebrow'
 import { Button } from '../Button'
 
 export function HeroManifeste() {
@@ -15,22 +14,18 @@ export function HeroManifeste() {
       />
       <Container className="relative z-10 py-24 md:py-32 lg:py-40">
         <div className="mx-auto max-w-5xl text-center">
-          <Eyebrow>LE SYSTÈME DES TOP PERFORMERS COMMERCIAUX</Eyebrow>
-          <h1 className="text-charbon mt-8 font-sans text-4xl font-black leading-[1.05] tracking-[-0.02em] md:text-6xl lg:text-7xl">
-            <span className="block">
-              Ce n&apos;est pas parce qu&apos;ils sont les meilleurs{' '}
-              <span className="text-orange">qu&apos;ils le font</span>.
-            </span>
-            <span className="mt-6 block md:mt-8">
-              Mais parce qu&apos;ils le font{' '}
-              <span className="text-orange">qu&apos;ils sont les meilleurs</span>.
-            </span>
+          <h1 className="text-charbon font-sans text-5xl font-black leading-[1.05] sm:text-6xl md:text-7xl lg:text-8xl">
+            L&apos;action forge l&apos;excellence.
           </h1>
-          <p className="font-body text-grey mx-auto mt-10 max-w-3xl text-lg leading-relaxed md:text-xl">
-            APEXER installe chez vous le système des top performers commerciaux français. Décortiqué
-            pendant 2 ans. Tenu chaque mois par un Bâtisseur sur votre territoire.
+          <p className="text-charbon/70 mx-auto mt-12 max-w-3xl font-serif text-xl italic leading-relaxed md:text-2xl">
+            «&nbsp;Ce n&apos;est pas parce qu&apos;ils sont les meilleurs qu&apos;ils le font. Mais
+            parce qu&apos;ils le font qu&apos;ils sont les meilleurs.&nbsp;»
           </p>
-          <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <p className="font-body text-charbon mx-auto mt-12 max-w-3xl text-lg leading-relaxed">
+            Pas une formation. Pas un coaching. Une infrastructure de Forges qui installe chez vous
+            le système des meilleurs dans leur domaine — pour 89€/mois.
+          </p>
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button href="/candidater" variant="orange" size="lg">
               Postuler à une Forge
             </Button>

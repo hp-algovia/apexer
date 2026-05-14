@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { Container } from '../Container'
-import { Eyebrow } from '../Eyebrow'
 import { FadeIn } from '../FadeIn'
 
 const items = [
@@ -35,8 +34,7 @@ export function ComingSoon() {
       <Container className="relative z-10 py-24 md:py-32">
         <FadeIn>
           <div className="max-w-3xl">
-            <Eyebrow>BIENTÔT</Eyebrow>
-            <h2 className="text-charbon mt-6 font-sans text-4xl font-bold leading-[1.1] tracking-[-0.02em] md:text-5xl">
+            <h2 className="text-charbon font-sans text-4xl font-bold leading-[1.1] tracking-[-0.02em] md:text-5xl">
               APEXER s&apos;élargit en 2027.
             </h2>
             <p className="font-body text-grey mt-6 text-lg leading-relaxed md:text-xl">

@@ -1,3 +1,11 @@
+# APEXER — CLAUDE.md
+
+## 1. Identité du projet
+
+APEXER est l'infrastructure de la performance commerciale et humaine durable. Système issu de 2 années d'observation des top performers commerciaux français, déployé à travers un réseau de Bâtisseurs.
+
+**Slogan principal** : « L'action forge l'excellence. »
+
 ## 5. Identité visuelle APEXER
 
 ### Référentiels design (binôme imposé)
@@ -253,15 +261,25 @@ APEXER se construit sur l'intégrité. Aucun mensonge, même implicite, sur le s
 
 Si la réponse est non → la ligne ne va pas sur le site.
 
-## 14. La signature APEXER (intouchable)
+## 14. Les deux marqueurs verbaux APEXER
 
-Le slogan « **Ce n'est pas parce qu'ils sont les meilleurs qu'ils le font. Mais parce qu'ils le font qu'ils sont les meilleurs.** » est la **signature APEXER**.
+### Le Hero (slogan principal)
 
-### Règles d'usage
+« L'action forge l'excellence. »
 
-- ✅ **Présent en Hero principal de la homepage**, en H1 typographiquement éclaté pour faire ressortir le parallélisme.
-- ✅ **Ne se reformule jamais.** On ne le synthétise pas, on ne le coupe pas, on ne le remplace pas.
-- ✅ **Repris en signature email**, en footer subtil, en couverture de documents PDF.
-- ✅ **Le sous-slogan opérationnel** « Arrêtez de compter sur la motivation. Installez le système. » peut servir en H2 secondaire, mais **ne remplace jamais la signature**.
+Règles d'usage :
 
-### Recommandation typographique pour le H1 du Hero
+- ✅ H1 principal de la homepage, en typographie massive DM Sans 800
+- ✅ Repris en pitch deck, signature email, supports physiques
+- ✅ Mémorable, court, brand-defining
+
+### La signature de profondeur (intouchable)
+
+« Ce n'est pas parce qu'ils sont les meilleurs qu'ils le font. Mais parce qu'ils le font qu'ils sont les meilleurs. »
+
+Règles d'usage :
+
+- ✅ Présente en sous-titre Georgia italic SOUS le H1 du Hero
+- ✅ Reprise en footer en signature finale
+- ✅ Reprise en fin de programmes APEX, en outro de vidéos, en signature email
+- ✅ Ne se reformule jamais, ne se synthétise pas, ne se coupe pas

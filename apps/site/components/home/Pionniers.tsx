@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { Container } from '../Container'
-import { Eyebrow } from '../Eyebrow'
 import { Countdown } from '../Countdown'
 import { FadeIn } from '../FadeIn'
 
@@ -18,8 +17,7 @@ export function Pionniers() {
       <Container className="relative z-10 py-24 md:py-32">
         <div className="mx-auto max-w-4xl text-center">
           <FadeIn>
-            <Eyebrow tone="white">LES 30 PIONNIERS</Eyebrow>
-            <h2 className="mt-6 font-sans text-4xl font-black leading-[1.05] tracking-[-0.02em] text-white md:text-6xl lg:text-7xl">
+            <h2 className="font-sans text-4xl font-black leading-[1.05] tracking-[-0.02em] text-white md:text-6xl lg:text-7xl">
               30 Bâtisseurs. 30 Forges fondatrices. 30 territoires.
             </h2>
             <p className="font-body mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/90 md:text-xl">

@@ -1,5 +1,4 @@
 import { Container } from '../Container'
-import { Eyebrow } from '../Eyebrow'
 import { FadeIn } from '../FadeIn'
 
 const observations = [
@@ -36,8 +35,7 @@ export function Observations() {
       <Container className="py-24 md:py-32">
         <FadeIn>
           <div className="max-w-3xl">
-            <Eyebrow>CE QU&apos;ILS FONT DIFFÉREMMENT</Eyebrow>
-            <h2 className="text-charbon mt-6 font-sans text-4xl font-bold leading-[1.1] tracking-[-0.02em] md:text-5xl">
+            <h2 className="text-charbon font-sans text-4xl font-bold leading-[1.1] tracking-[-0.02em] md:text-5xl">
               5 observations qui changent tout.
             </h2>
           </div>
