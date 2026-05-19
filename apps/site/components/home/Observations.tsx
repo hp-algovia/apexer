@@ -4,9 +4,7 @@ import { FadeIn } from '../FadeIn'
 
 type Observation = {
   n: string
-  /** Texte d'accessibilité (le titre visuel est déjà intégré dans l'image). */
   alt: string
-  /** Chemin de l'image dans /public. Format vertical 3:4, JPG ~200 Ko. */
   src: string
 }
 
@@ -14,34 +12,33 @@ const observations: Observation[] = [
   {
     n: '01',
     alt: 'Observation 01 — Zéro charge mentale. Le dimanche, son téléphone reste éteint.',
-    src: '/observations/01-charge-mentale.jpg',
+    src: '/01-charge-mentale.jpg',
   },
   {
     n: '02',
     alt: 'Observation 02 — Passionnés donc passionnants. Le client repart avec une histoire à raconter.',
-    src: '/observations/02-passion.jpg',
+    src: '/02-passion.jpg',
   },
   {
     n: '03',
     alt: 'Observation 03 — Ils ne prospectent pas. Ils rayonnent. Le téléphone sonne, pas l’inverse.',
-    src: '/observations/03-rayonnent.jpg',
+    src: '/03-rayonnent.jpg',
   },
   {
     n: '04',
     alt: 'Observation 04 — Ils ont tous un mentor. Quelqu’un qui leur dit ce qu’ils ne voient pas.',
-    src: '/observations/04-mentor.jpg',
+    src: '/04-mentor.jpg',
   },
   {
     n: '05',
     alt: 'Observation 05 — Ils apprennent toujours. Les meilleurs sont les plus assidus.',
-    src: '/observations/05-apprennent.jpg',
+    src: '/05-apprennent.jpg',
   },
 ]
 
 export function Observations() {
   return (
     <section className="bg-off relative overflow-hidden">
-      {/* Halo orange très léger en haut à droite */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-0"
@@ -64,7 +61,6 @@ export function Observations() {
           </div>
         </FadeIn>
 
-        {/* Grille de 5 cartes verticales 3:4 — style Tony Robbins / Netflix */}
         <div className="mt-14 grid grid-cols-2 gap-3 sm:gap-4 lg:mt-20 lg:grid-cols-5">
           {observations.map((obs, idx) => (
             <FadeIn key={obs.n} delay={idx * 80}>
@@ -80,7 +76,6 @@ export function Observations() {
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   priority={idx < 2}
                 />
-                {/* Halo orange subtil au survol pour signaler l'interactivité */}
                 <div
                   aria-hidden
                   className="ease-apexer pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
