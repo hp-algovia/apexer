@@ -1,5 +1,5 @@
-import type { Metadata } from 'next'
-import { DM_Sans, Inter } from 'next/font/google'
+import type { Metadata, Viewport } from 'next'
+import { DM_Sans, Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 
 const dmSans = DM_Sans({
@@ -14,15 +14,32 @@ const inter = Inter({
   display: 'swap',
 })
 
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
-  title: 'APEXER — App',
-  description: 'Espace Forgeron, Maître-Forgeron et administration APEXER.',
+  title: 'APEXER',
+  description: 'Coaching comportemental et performance commerciale. L’action forge l’excellence.',
+}
+
+export const viewport: Viewport = {
+  themeColor: '#0A0A0A',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: 'cover',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${dmSans.variable} ${inter.variable}`}>
-      <body className="bg-light text-navy font-sans antialiased">{children}</body>
+    <html
+      lang="fr"
+      className={`${dmSans.variable} ${inter.variable} ${jetbrainsMono.variable} dark`}
+    >
+      <body className="bg-noir font-body text-white antialiased">{children}</body>
     </html>
   )
 }
