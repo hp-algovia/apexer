@@ -1,8 +1,6 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
 export type Database = {
-  // Allows to automatically instantiate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: '14.5'
   }
@@ -325,6 +323,378 @@ export type Database = {
         }
         Relationships: []
       }
+      program_phases: {
+        Row: {
+          description: string | null
+          id: string
+          name: string
+          phase_number: number
+          program_id: string
+          weeks_end: number
+          weeks_start: number
+        }
+        Insert: {
+          description?: string | null
+          id: string
+          name: string
+          phase_number: number
+          program_id: string
+          weeks_end: number
+          weeks_start: number
+        }
+        Update: {
+          description?: string | null
+          id?: string
+          name?: string
+          phase_number?: number
+          program_id?: string
+          weeks_end?: number
+          weeks_start?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'program_phases_program_id_fkey'
+            columns: ['program_id']
+            isOneToOne: false
+            referencedRelation: 'programs'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      program_stages: {
+        Row: {
+          created_at: string | null
+          duration_days: number
+          id: string
+          mantra: string | null
+          name: string
+          phase_id: string
+          program_id: string
+          stage_number: number
+          subtitle: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          duration_days: number
+          id: string
+          mantra?: string | null
+          name: string
+          phase_id: string
+          program_id: string
+          stage_number: number
+          subtitle?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          duration_days?: number
+          id?: string
+          mantra?: string | null
+          name?: string
+          phase_id?: string
+          program_id?: string
+          stage_number?: number
+          subtitle?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'program_stages_phase_id_fkey'
+            columns: ['phase_id']
+            isOneToOne: false
+            referencedRelation: 'program_phases'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'program_stages_program_id_fkey'
+            columns: ['program_id']
+            isOneToOne: false
+            referencedRelation: 'programs'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      programs: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          duration_weeks: number | null
+          id: string
+          name: string
+          price_cents: number | null
+          status: string | null
+          subtitle: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          duration_weeks?: number | null
+          id: string
+          name: string
+          price_cents?: number | null
+          status?: string | null
+          subtitle?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          duration_weeks?: number | null
+          id?: string
+          name?: string
+          price_cents?: number | null
+          status?: string | null
+          subtitle?: string | null
+        }
+        Relationships: []
+      }
+      stage_daily_validations: {
+        Row: {
+          coaching_message: string
+          day_number: number
+          id: string
+          protocol_id: string
+          q1_execution: number
+          q2_observation: number
+          q3_pilotage: string
+          stage_id: string
+          user_id: string
+          validated_at: string | null
+          xp_earned: number
+        }
+        Insert: {
+          coaching_message: string
+          day_number: number
+          id?: string
+          protocol_id: string
+          q1_execution: number
+          q2_observation: number
+          q3_pilotage: string
+          stage_id: string
+          user_id: string
+          validated_at?: string | null
+          xp_earned: number
+        }
+        Update: {
+          coaching_message?: string
+          day_number?: number
+          id?: string
+          protocol_id?: string
+          q1_execution?: number
+          q2_observation?: number
+          q3_pilotage?: string
+          stage_id?: string
+          user_id?: string
+          validated_at?: string | null
+          xp_earned?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'stage_daily_validations_stage_id_fkey'
+            columns: ['stage_id']
+            isOneToOne: false
+            referencedRelation: 'program_stages'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      stage_diagnostic_responses: {
+        Row: {
+          created_at: string | null
+          diagnostic_type: string
+          id: string
+          protocol_id: string | null
+          question_id: string
+          selected_value: number
+          stage_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          diagnostic_type: string
+          id?: string
+          protocol_id?: string | null
+          question_id: string
+          selected_value: number
+          stage_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          diagnostic_type?: string
+          id?: string
+          protocol_id?: string | null
+          question_id?: string
+          selected_value?: number
+          stage_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'stage_diagnostic_responses_protocol_id_fkey'
+            columns: ['protocol_id']
+            isOneToOne: false
+            referencedRelation: 'stage_protocols'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'stage_diagnostic_responses_stage_id_fkey'
+            columns: ['stage_id']
+            isOneToOne: false
+            referencedRelation: 'program_stages'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      stage_diagnostic_scores: {
+        Row: {
+          created_at: string | null
+          diagnostic_type: string
+          id: string
+          score_by_protocol: Json
+          score_global: number
+          stage_id: string
+          strongest_protocol: string | null
+          user_id: string
+          weakest_protocol: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          diagnostic_type: string
+          id?: string
+          score_by_protocol: Json
+          score_global: number
+          stage_id: string
+          strongest_protocol?: string | null
+          user_id: string
+          weakest_protocol?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          diagnostic_type?: string
+          id?: string
+          score_by_protocol?: Json
+          score_global?: number
+          stage_id?: string
+          strongest_protocol?: string | null
+          user_id?: string
+          weakest_protocol?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'stage_diagnostic_scores_stage_id_fkey'
+            columns: ['stage_id']
+            isOneToOne: false
+            referencedRelation: 'program_stages'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      stage_protocols: {
+        Row: {
+          description: string | null
+          icon: string | null
+          id: string
+          name: string
+          sort_order: number
+          stage_id: string
+        }
+        Insert: {
+          description?: string | null
+          icon?: string | null
+          id: string
+          name: string
+          sort_order: number
+          stage_id: string
+        }
+        Update: {
+          description?: string | null
+          icon?: string | null
+          id?: string
+          name?: string
+          sort_order?: number
+          stage_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'stage_protocols_stage_id_fkey'
+            columns: ['stage_id']
+            isOneToOne: false
+            referencedRelation: 'program_stages'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      stage_witness_requests: {
+        Row: {
+          created_at: string | null
+          id: string
+          share_token: string
+          stage_id: string
+          status: string | null
+          user_id: string
+          witness_name: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          share_token: string
+          stage_id: string
+          status?: string | null
+          user_id: string
+          witness_name: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          share_token?: string
+          stage_id?: string
+          status?: string | null
+          user_id?: string
+          witness_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'stage_witness_requests_stage_id_fkey'
+            columns: ['stage_id']
+            isOneToOne: false
+            referencedRelation: 'program_stages'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      stage_witness_responses: {
+        Row: {
+          completed_at: string | null
+          id: string
+          q1: string
+          q2: string
+          q3: string
+          request_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          id?: string
+          q1: string
+          q2: string
+          q3: string
+          request_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          id?: string
+          q1?: string
+          q2?: string
+          q3?: string
+          request_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'stage_witness_responses_request_id_fkey'
+            columns: ['request_id']
+            isOneToOne: false
+            referencedRelation: 'stage_witness_requests'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       tasks: {
         Row: {
           completed_at: string | null
@@ -524,6 +894,51 @@ export type Database = {
           },
         ]
       }
+      user_programs: {
+        Row: {
+          current_day: number | null
+          current_stage_id: string | null
+          id: string
+          program_id: string
+          started_at: string | null
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          current_day?: number | null
+          current_stage_id?: string | null
+          id?: string
+          program_id: string
+          started_at?: string | null
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          current_day?: number | null
+          current_stage_id?: string | null
+          id?: string
+          program_id?: string
+          started_at?: string | null
+          status?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'user_programs_current_stage_id_fkey'
+            columns: ['current_stage_id']
+            isOneToOne: false
+            referencedRelation: 'program_stages'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'user_programs_program_id_fkey'
+            columns: ['program_id']
+            isOneToOne: false
+            referencedRelation: 'programs'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       weekly_reviews: {
         Row: {
           ai_recommendation: string | null
@@ -573,7 +988,19 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_witness_request: {
+        Args: { p_token: string }
+        Returns: {
+          id: string
+          stage_id: string
+          status: string
+          witness_name: string
+        }[]
+      }
+      submit_witness_response: {
+        Args: { p_q1: string; p_q2: string; p_q3: string; p_token: string }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

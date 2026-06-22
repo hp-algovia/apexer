@@ -27,15 +27,15 @@ const NAV_ITEMS: NavItem[] = [
     ),
   },
   {
-    href: '/progress/objective',
-    label: 'Plan',
+    href: '/mont-blanc',
+    label: 'Programme',
     icon: (active) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
         <path
-          d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"
+          d="M3 20h18L14 7l-3.5 6L8 9l-5 11Z"
           stroke={stroke(active)}
           strokeWidth="2"
-          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     ),
