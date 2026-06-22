@@ -1,11 +1,11 @@
 'use client'
 
-import { LE_LIEN_PROTOCOLS } from '@/lib/data/le-lien-protocols'
+import type { ProtocolInfo } from '@/lib/mont-blanc/stages'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useState } from 'react'
 
-// Bouton + bottom sheet listant les 5 protocoles.
-export function ProtocolsSheet() {
+// Bouton + bottom sheet listant les protocoles d'une étape.
+export function ProtocolsSheet({ protocols }: { protocols: ProtocolInfo[] }) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -15,7 +15,7 @@ export function ProtocolsSheet() {
         onClick={() => setOpen(true)}
         className="text-fumee w-full text-center text-sm transition-colors hover:text-white"
       >
-        Voir les 5 protocoles
+        Voir les {protocols.length} protocoles
       </button>
 
       <AnimatePresence>
@@ -37,10 +37,10 @@ export function ProtocolsSheet() {
             >
               <div className="bg-acier mx-auto mb-5 h-1 w-10 rounded-full" />
               <p className="text-feu text-sm font-medium uppercase tracking-wider">
-                Les 5 protocoles
+                Les {protocols.length} protocoles
               </p>
               <ul className="mt-4 flex flex-col gap-4">
-                {LE_LIEN_PROTOCOLS.map((protocol) => (
+                {protocols.map((protocol) => (
                   <li key={protocol.id} className="flex gap-3">
                     <span className="text-xl" aria-hidden>
                       {protocol.icon}

@@ -2,41 +2,11 @@
 
 import { ApexerLogo } from '@/components/logo/ApexerLogo'
 import { SelectableCard } from '@/components/ui/SelectableCard'
+import { getStage, type WitnessQuestion } from '@/lib/mont-blanc/stages'
 import { createClient } from '@/lib/supabase/client'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-
-// ⚠️ Questions du témoin rédigées ici (non spécifiées au brief) — à valider par HP.
-const WITNESS_QUESTIONS = [
-  {
-    text: 'Ces dernières semaines, la personne qui t’a partagé ce lien t’a semblé…',
-    options: [
-      { label: "Plus à l'écoute que d'habitude", value: 'great' },
-      { label: 'Un peu plus présente', value: 'good' },
-      { label: "Comme d'habitude", value: 'neutral' },
-      { label: 'Je n’ai pas remarqué', value: 'none' },
-    ],
-  },
-  {
-    text: 'Dans vos échanges récents, elle…',
-    options: [
-      { label: "T'a laissé aller au bout de tes idées", value: 'great' },
-      { label: 'T’a globalement bien écouté', value: 'good' },
-      { label: 'A parfois coupé ou ramené à elle', value: 'neutral' },
-      { label: 'Difficile à dire', value: 'none' },
-    ],
-  },
-  {
-    text: 'Globalement, le lien avec elle…',
-    options: [
-      { label: 'S’est renforcé', value: 'great' },
-      { label: 'Est resté bon', value: 'good' },
-      { label: 'N’a pas changé', value: 'neutral' },
-      { label: 'Je préfère ne pas dire', value: 'none' },
-    ],
-  },
-]
 
 type Phase = 'loading' | 'intro' | 'questions' | 'done' | 'invalid'
 
@@ -47,6 +17,7 @@ export default function TemoinPublicPage() {
 
   const [phase, setPhase] = useState<Phase>('loading')
   const [witnessName, setWitnessName] = useState('')
+  const [questions, setQuestions] = useState<WitnessQuestion[]>([])
   const [index, setIndex] = useState(0)
   const [picked, setPicked] = useState<string | null>(null)
   const [answers, setAnswers] = useState<string[]>([])
@@ -59,6 +30,8 @@ export default function TemoinPublicPage() {
         setPhase(request?.status === 'completed' ? 'done' : 'invalid')
         return
       }
+      const stage = getStage(request.stage_id)
+      setQuestions(stage?.witnessQuestions ?? [])
       setWitnessName(request.witness_name)
       setPhase('intro')
     }
@@ -71,7 +44,7 @@ export default function TemoinPublicPage() {
     setPicked(optionKey)
     const nextAnswers = [...answers, value]
     setTimeout(() => {
-      if (index < WITNESS_QUESTIONS.length - 1) {
+      if (index < questions.length - 1) {
         setAnswers(nextAnswers)
         setIndex(index + 1)
         setPicked(null)
@@ -120,8 +93,8 @@ export default function TemoinPublicPage() {
         <ApexerLogo size={64} />
         <h1 className="font-sans text-3xl font-black text-white">Bonjour {witnessName}</h1>
         <p className="text-fumee">
-          Une personne proche travaille sa qualité de présence dans la relation. Ton regard l’aide à
-          mesurer son évolution. 3 questions, anonyme, 30 secondes.
+          Une personne proche travaille son développement professionnel. Ton regard l’aide à mesurer
+          son évolution. 3 questions, anonyme, 30 secondes.
         </p>
         <button
           type="button"
@@ -134,13 +107,13 @@ export default function TemoinPublicPage() {
     )
   }
 
-  const question = WITNESS_QUESTIONS[index]
+  const question = questions[index]
   if (!question) return null
 
   return (
     <main className="flex min-h-dvh flex-col px-6 py-10">
       <p className="text-fumee font-mono text-xs">
-        Question {index + 1}/{WITNESS_QUESTIONS.length}
+        Question {index + 1}/{questions.length}
       </p>
       <AnimatePresence mode="wait">
         <motion.div

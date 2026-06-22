@@ -1,21 +1,24 @@
 'use client'
 
 import { Button } from '@/components/ui/Button'
-import { PROTOCOL_BY_ID } from '@/lib/data/le-lien-protocols'
 import { awardBadge } from '@/lib/engine/badges'
 import { awardPoints } from '@/lib/engine/points'
-import { PROGRAM_ID, STAGE_ID } from '@/lib/mont-blanc/le-lien'
+import { PROGRAM_ID, getStage, protocolById } from '@/lib/mont-blanc/stages'
 import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
+import { notFound, useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-export default function LeLienContratPage() {
+export default function StageContratPage() {
+  const params = useParams<{ stageId: string }>()
   const router = useRouter()
   const supabase = createClient()
+  const stage = getStage(params.stageId)
+
   const [weakest, setWeakest] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    if (!stage) return
     async function load() {
       const {
         data: { user },
@@ -25,7 +28,7 @@ export default function LeLienContratPage() {
         .from('stage_diagnostic_scores')
         .select('weakest_protocol')
         .eq('user_id', user.id)
-        .eq('stage_id', STAGE_ID)
+        .eq('stage_id', stage!.id)
         .eq('diagnostic_type', 'entry')
         .order('created_at', { ascending: false })
         .limit(1)
@@ -36,7 +39,10 @@ export default function LeLienContratPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  if (!stage) return notFound()
+
   async function activate() {
+    if (!stage) return
     setLoading(true)
     const {
       data: { user },
@@ -50,18 +56,17 @@ export default function LeLienContratPage() {
       {
         user_id: user.id,
         program_id: PROGRAM_ID,
-        current_stage_id: STAGE_ID,
+        current_stage_id: stage.id,
         current_day: 1,
         status: 'active',
-        started_at: new Date().toISOString(),
       },
       { onConflict: 'user_id,program_id' },
     )
 
     await awardPoints(supabase, user.id, 'STAGE_DIAGNOSTIC_ENTRY')
-    await awardBadge(supabase, user.id, 'le-lien-point-zero')
+    await awardBadge(supabase, user.id, stage.badges.pointZero)
 
-    router.push('/mont-blanc/le-lien/hub')
+    router.push(`/mont-blanc/${stage.id}/hub`)
     router.refresh()
   }
 
@@ -72,13 +77,13 @@ export default function LeLienContratPage() {
       {weakest ? (
         <p className="mt-4 text-lg text-white">
           Protocole à renforcer :{' '}
-          <span className="text-feu">{PROTOCOL_BY_ID[weakest]?.name ?? weakest}</span>
+          <span className="text-feu">{protocolById(stage, weakest)?.name ?? weakest}</span>
         </p>
       ) : null}
 
       <div className="mt-8 flex flex-1 flex-col gap-4 text-white">
         <p className="font-sans text-xl font-bold">
-          21 jours. 1 mission par jour. 3 choix. 0 texte.
+          {stage.durationDays} jours. 1 mission par jour. 3 choix. 0 texte.
         </p>
         <p className="text-fumee">
           Chaque jour, tu ouvres l’app. Tu lis ta mission. Tu la fais. Tu reviens valider.
@@ -92,7 +97,7 @@ export default function LeLienContratPage() {
 
       <div className="pb-6">
         <Button fullWidth onClick={activate} disabled={loading}>
-          {loading ? 'Activation…' : "J'ai compris — activer l'étape"}
+          {loading ? 'Activation…' : 'J’ai compris — activer l’étape'}
         </Button>
       </div>
     </main>

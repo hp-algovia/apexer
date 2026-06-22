@@ -2,12 +2,11 @@
 
 import { RadarChart } from '@/components/mont-blanc/RadarChart'
 import { Button } from '@/components/ui/Button'
-import { PROTOCOL_BY_ID, LE_LIEN_MANTRA } from '@/lib/data/le-lien-protocols'
-import { scoreLabel } from '@/lib/engine/stage-scoring'
-import { STAGE_ID } from '@/lib/mont-blanc/le-lien'
+import { getStage, protocolById, radarAxes, scoreLabel } from '@/lib/mont-blanc/stages'
 import { createClient } from '@/lib/supabase/client'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { notFound, useParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
 function useCountUp(target: number, duration = 1500) {
@@ -37,12 +36,16 @@ type ScoreData = {
   weakest: string
 }
 
-export default function LeLienScorePage() {
+export default function StageScorePage() {
+  const params = useParams<{ stageId: string }>()
   const supabase = createClient()
+  const stage = getStage(params.stageId)
+
   const [data, setData] = useState<ScoreData | null>(null)
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
+    if (!stage) return
     async function load() {
       const {
         data: { user },
@@ -52,7 +55,7 @@ export default function LeLienScorePage() {
         .from('stage_diagnostic_scores')
         .select('score_global, score_by_protocol, strongest_protocol, weakest_protocol')
         .eq('user_id', user.id)
-        .eq('stage_id', STAGE_ID)
+        .eq('stage_id', stage!.id)
         .eq('diagnostic_type', 'entry')
         .order('created_at', { ascending: false })
         .limit(1)
@@ -61,8 +64,8 @@ export default function LeLienScorePage() {
         setData({
           scoreGlobal: score.score_global,
           scoreByProtocol: (score.score_by_protocol as Record<string, number>) ?? {},
-          strongest: score.strongest_protocol ?? 'attention',
-          weakest: score.weakest_protocol ?? 'attention',
+          strongest: score.strongest_protocol ?? '',
+          weakest: score.weakest_protocol ?? '',
         })
       }
       setLoaded(true)
@@ -73,15 +76,15 @@ export default function LeLienScorePage() {
 
   const animatedScore = useCountUp(data?.scoreGlobal ?? 0)
 
+  if (!stage) return notFound()
   if (!loaded) {
     return <main className="text-fumee flex min-h-dvh items-center justify-center">…</main>
   }
-
   if (!data) {
     return (
       <main className="flex min-h-dvh flex-col items-center justify-center gap-4 px-6 text-center">
         <p className="text-fumee">Aucun diagnostic trouvé.</p>
-        <Link href="/mont-blanc/le-lien/diagnostic">
+        <Link href={`/mont-blanc/${stage.id}/diagnostic`}>
           <Button>Faire le diagnostic</Button>
         </Link>
       </main>
@@ -100,7 +103,7 @@ export default function LeLienScorePage() {
       >
         {animatedScore}%
       </motion.p>
-      <p className="text-fumee mt-2 text-lg">{scoreLabel(data.scoreGlobal)}</p>
+      <p className="text-fumee mt-2 text-lg">{scoreLabel(stage, data.scoreGlobal)}</p>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -108,24 +111,24 @@ export default function LeLienScorePage() {
         transition={{ delay: 0.4, duration: 0.6 }}
         className="mt-8"
       >
-        <RadarChart scores={data.scoreByProtocol} size={280} />
+        <RadarChart axes={radarAxes(stage)} scores={data.scoreByProtocol} size={280} />
       </motion.div>
 
       <div className="mt-6 flex w-full flex-col gap-2 text-left">
         <p className="text-white">
           <span className="text-valide">Ton point fort :</span>{' '}
-          {PROTOCOL_BY_ID[data.strongest]?.name ?? data.strongest}
+          {protocolById(stage, data.strongest)?.name ?? data.strongest}
         </p>
         <p className="text-white">
           <span className="text-alerte">À renforcer :</span>{' '}
-          {PROTOCOL_BY_ID[data.weakest]?.name ?? data.weakest}
+          {protocolById(stage, data.weakest)?.name ?? data.weakest}
         </p>
       </div>
 
-      <p className="text-fumee mt-8 font-serif text-lg italic">« {LE_LIEN_MANTRA} »</p>
+      <p className="text-fumee mt-8 font-serif text-lg italic">« {stage.mantra} »</p>
 
       <div className="mt-auto w-full pt-10">
-        <Link href="/mont-blanc/le-lien/contrat" className="block">
+        <Link href={`/mont-blanc/${stage.id}/contrat`} className="block">
           <Button fullWidth>Lancer l’étape</Button>
         </Link>
       </div>

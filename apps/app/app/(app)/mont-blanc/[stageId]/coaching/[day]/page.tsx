@@ -3,23 +3,17 @@
 import { CoachingMessage } from '@/components/mont-blanc/CoachingMessage'
 import { Button } from '@/components/ui/Button'
 import { computeStageStreak } from '@/lib/engine/stage-streak'
-import { STAGE_ID } from '@/lib/mont-blanc/le-lien'
+import { getStage } from '@/lib/mont-blanc/stages'
 import { createClient } from '@/lib/supabase/client'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
+import { notFound, useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-const MILESTONE_BADGE_NAME: Record<number, string> = {
-  3: '',
-  7: 'Présence Active',
-  14: 'Écoute Armée',
-  21: 'Lien Maîtrisé',
-}
-
-export default function LeLienCoachingPage() {
-  const params = useParams<{ day: string }>()
+export default function StageCoachingPage() {
+  const params = useParams<{ stageId: string; day: string }>()
   const supabase = createClient()
+  const stage = getStage(params.stageId)
   const day = Number(params.day)
 
   const [coaching, setCoaching] = useState<string | null>(null)
@@ -28,6 +22,7 @@ export default function LeLienCoachingPage() {
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
+    if (!stage) return
     async function load() {
       const {
         data: { user },
@@ -38,7 +33,7 @@ export default function LeLienCoachingPage() {
         .from('stage_daily_validations')
         .select('coaching_message, xp_earned')
         .eq('user_id', user.id)
-        .eq('stage_id', STAGE_ID)
+        .eq('stage_id', stage!.id)
         .eq('day_number', day)
         .maybeSingle()
       if (validation) {
@@ -50,10 +45,17 @@ export default function LeLienCoachingPage() {
         .from('stage_daily_validations')
         .select('day_number')
         .eq('user_id', user.id)
-        .eq('stage_id', STAGE_ID)
+        .eq('stage_id', stage!.id)
       const streak = computeStageStreak((vals ?? []).map((v) => v.day_number))
-      const name = MILESTONE_BADGE_NAME[streak]
-      if (name) setBadgeName(name)
+      const badgeKey = stage!.milestoneBadges[streak]
+      if (badgeKey) {
+        const { data: badge } = await supabase
+          .from('badges')
+          .select('name')
+          .eq('key', badgeKey)
+          .maybeSingle()
+        if (badge) setBadgeName(badge.name)
+      }
 
       setLoaded(true)
     }
@@ -61,6 +63,7 @@ export default function LeLienCoachingPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  if (!stage) return notFound()
   if (!loaded) {
     return <main className="text-fumee flex min-h-dvh items-center justify-center">…</main>
   }
@@ -69,7 +72,6 @@ export default function LeLienCoachingPage() {
     <main className="flex min-h-dvh flex-col px-6 py-10">
       <p className="text-feu text-sm font-medium uppercase tracking-wider">Jour {day} validé</p>
 
-      {/* XP gagnés */}
       <div className="mt-6">
         <div className="flex items-baseline justify-between">
           <span className="text-fumee">XP gagnés</span>
@@ -109,11 +111,11 @@ export default function LeLienCoachingPage() {
       </div>
 
       <div className="flex flex-col gap-3 pb-6">
-        <Link href="/mont-blanc/le-lien/dashboard" className="block">
+        <Link href={`/mont-blanc/${stage.id}/dashboard`} className="block">
           <Button fullWidth>Voir mon tableau de bord</Button>
         </Link>
         <Link
-          href="/mont-blanc/le-lien/hub"
+          href={`/mont-blanc/${stage.id}/hub`}
           className="text-fumee text-center text-sm transition-colors hover:text-white"
         >
           Fermer

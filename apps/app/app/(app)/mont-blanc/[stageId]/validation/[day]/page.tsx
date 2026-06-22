@@ -2,35 +2,24 @@
 
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { SelectableCard } from '@/components/ui/SelectableCard'
-import {
-  Q3_BILAN,
-  Q3_PILOTAGE,
-  missionForDay,
-  type ValidationQuestion,
-} from '@/lib/data/le-lien-missions'
+import { Q3_BILAN, Q3_PILOTAGE, type ValidationQuestion } from '@/lib/data/le-lien-missions'
 import { STREAK_MILESTONES } from '@/lib/data/le-lien-xp'
 import { awardBadge } from '@/lib/engine/badges'
 import { awardPoints } from '@/lib/engine/points'
-import { getCoachingMessage } from '@/lib/data/le-lien-coaching'
 import { computeStageStreak } from '@/lib/engine/stage-streak'
-import { computeCurrentDay, STAGE_ID } from '@/lib/mont-blanc/le-lien'
+import { PROGRAM_ID, coachingMessage, computeCurrentDay, getStage } from '@/lib/mont-blanc/stages'
 import { createClient } from '@/lib/supabase/client'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useParams, useRouter } from 'next/navigation'
+import { notFound, useParams, useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 
-const MILESTONE_BADGE: Record<number, string> = {
-  7: 'le-lien-presence-active',
-  14: 'le-lien-ecoute-armee',
-  21: 'le-lien-maitrise',
-}
-
-export default function LeLienValidationPage() {
+export default function StageValidationPage() {
   const router = useRouter()
-  const params = useParams<{ day: string }>()
+  const params = useParams<{ stageId: string; day: string }>()
   const supabase = createClient()
+  const stage = getStage(params.stageId)
   const day = Number(params.day)
-  const mission = missionForDay(day)
+  const mission = stage?.missions.find((m) => m.day === day)
 
   const questions = useMemo<ValidationQuestion[]>(() => {
     if (!mission) return []
@@ -43,9 +32,12 @@ export default function LeLienValidationPage() {
   const [values, setValues] = useState<(number | string)[]>([])
   const [saving, setSaving] = useState(false)
 
-  // Garde : seul le jour courant, non déjà validé, est validable
   useEffect(() => {
     async function guard() {
+      if (!stage || !mission) {
+        router.replace('/mont-blanc')
+        return
+      }
       const {
         data: { user },
       } = await supabase.auth.getUser()
@@ -53,23 +45,26 @@ export default function LeLienValidationPage() {
         router.replace('/auth/login')
         return
       }
-      const { data: program } = await supabase
-        .from('user_programs')
-        .select('started_at')
+      const { data: entry } = await supabase
+        .from('stage_diagnostic_scores')
+        .select('created_at')
         .eq('user_id', user.id)
-        .eq('program_id', 'mont-blanc')
+        .eq('stage_id', stage.id)
+        .eq('diagnostic_type', 'entry')
+        .order('created_at', { ascending: true })
+        .limit(1)
         .maybeSingle()
-      const currentDay = computeCurrentDay(program?.started_at)
+      const currentDay = computeCurrentDay(entry?.created_at, stage.durationDays)
       const { data: existing } = await supabase
         .from('stage_daily_validations')
         .select('id')
         .eq('user_id', user.id)
-        .eq('stage_id', STAGE_ID)
+        .eq('stage_id', stage.id)
         .eq('day_number', day)
         .maybeSingle()
 
-      if (!mission || day !== currentDay || existing) {
-        router.replace('/mont-blanc/le-lien/hub')
+      if (!entry?.created_at || day !== currentDay || existing) {
+        router.replace(`/mont-blanc/${stage.id}/hub`)
         return
       }
       setReady(true)
@@ -78,7 +73,8 @@ export default function LeLienValidationPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (!mission || !ready) {
+  if (!stage || !mission) return notFound()
+  if (!ready) {
     return <main className="text-fumee flex min-h-dvh items-center justify-center">…</main>
   }
 
@@ -100,25 +96,31 @@ export default function LeLienValidationPage() {
     }, 250)
   }
 
+  function toScore(v: number | string | undefined): number {
+    const n = Number(v)
+    return Number.isFinite(n) ? n : 3 // jour bilan : valeurs non numériques → neutre
+  }
+
   async function finish(allValues: (number | string)[]) {
+    if (!stage || !mission) return
     setSaving(true)
     const {
       data: { user },
     } = await supabase.auth.getUser()
-    if (!user || !mission) {
+    if (!user) {
       router.replace('/auth/login')
       return
     }
 
-    const q1 = Number(allValues[0] ?? 0)
-    const q2 = Number(allValues[1] ?? 0)
+    const q1 = toScore(allValues[0])
+    const q2 = toScore(allValues[1])
     const q3 = String(allValues[2] ?? 'consolidate')
-    const coaching = getCoachingMessage(mission.protocolId, q1)
+    const coaching = coachingMessage(stage, mission.protocolId, q1)
     const xpEarned = 30 // STAGE_MISSION_VALIDATED (20) + STAGE_OBSERVATION_DONE (10)
 
     await supabase.from('stage_daily_validations').insert({
       user_id: user.id,
-      stage_id: STAGE_ID,
+      stage_id: stage.id,
       day_number: day,
       protocol_id: mission.protocolId,
       q1_execution: q1,
@@ -132,26 +134,25 @@ export default function LeLienValidationPage() {
     await awardPoints(supabase, user.id, 'STAGE_OBSERVATION_DONE')
     await supabase
       .from('user_programs')
-      .update({ current_day: day })
+      .update({ current_day: day, current_stage_id: stage.id })
       .eq('user_id', user.id)
-      .eq('program_id', 'mont-blanc')
+      .eq('program_id', PROGRAM_ID)
 
-    // Série + jalons
     const { data: vals } = await supabase
       .from('stage_daily_validations')
       .select('day_number')
       .eq('user_id', user.id)
-      .eq('stage_id', STAGE_ID)
+      .eq('stage_id', stage.id)
     const validatedDays = (vals ?? []).map((v) => v.day_number)
     const streak = computeStageStreak(validatedDays)
     const milestone = STREAK_MILESTONES.find((m) => m.days === streak)
     if (milestone) {
       await awardPoints(supabase, user.id, milestone.reason)
-      const badgeKey = MILESTONE_BADGE[streak]
+      const badgeKey = stage.milestoneBadges[streak]
       if (badgeKey) await awardBadge(supabase, user.id, badgeKey)
     }
 
-    router.push(`/mont-blanc/le-lien/coaching/${day}`)
+    router.push(`/mont-blanc/${stage.id}/coaching/${day}`)
     router.refresh()
   }
 

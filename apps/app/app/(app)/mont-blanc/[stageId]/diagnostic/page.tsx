@@ -2,18 +2,14 @@
 
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { SelectableCard } from '@/components/ui/SelectableCard'
-import {
-  LE_LIEN_DIAGNOSTIC,
-  LE_LIEN_QUALITATIVE,
-  type StageDiagnosticQuestion,
-} from '@/lib/data/le-lien-diagnostic'
+import type { StageDiagnosticQuestion } from '@/lib/data/le-lien-diagnostic'
 import { awardBadge } from '@/lib/engine/badges'
 import { awardPoints } from '@/lib/engine/points'
 import { computeDiagnosticScores } from '@/lib/engine/stage-scoring'
-import { STAGE_ID } from '@/lib/mont-blanc/le-lien'
+import { getStage, protocolById } from '@/lib/mont-blanc/stages'
 import { createClient } from '@/lib/supabase/client'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { notFound, useParams, useRouter, useSearchParams } from 'next/navigation'
 import { Suspense, useMemo, useState } from 'react'
 
 type Step =
@@ -24,43 +20,46 @@ type Answer = { questionId: string; value: number; protocolId: string | null }
 
 function DiagnosticFlow() {
   const router = useRouter()
+  const params = useParams<{ stageId: string }>()
   const searchParams = useSearchParams()
   const supabase = createClient()
+  const stage = getStage(params.stageId)
   const diagnosticType = searchParams.get('type') === 'exit' ? 'exit' : 'entry'
 
-  const steps = useMemo<Step[]>(
-    () => [
-      ...LE_LIEN_DIAGNOSTIC.map((q) => ({ kind: 'scored' as const, q })),
-      ...LE_LIEN_QUALITATIVE.map((q) => ({ kind: 'qual' as const, q })),
-    ],
-    [],
-  )
+  const steps = useMemo<Step[]>(() => {
+    if (!stage) return []
+    return [
+      ...stage.diagnostic.map((q) => ({ kind: 'scored' as const, q })),
+      ...stage.qualitative.map((q) => ({ kind: 'qual' as const, q })),
+    ]
+  }, [stage])
 
   const [index, setIndex] = useState(0)
   const [picked, setPicked] = useState<string | null>(null)
   const [answers, setAnswers] = useState<Answer[]>([])
   const [saving, setSaving] = useState(false)
 
+  if (!stage) return notFound()
   const step = steps[index]
   if (!step) return null
 
-  async function select(answer: Answer, optionKey: string) {
+  function select(answer: Answer, optionKey: string) {
     if (picked || saving) return
     setPicked(optionKey)
     const nextAnswers = [...answers, answer]
-
-    setTimeout(async () => {
+    setTimeout(() => {
       if (index < steps.length - 1) {
         setAnswers(nextAnswers)
         setIndex(index + 1)
         setPicked(null)
         return
       }
-      await finish(nextAnswers)
+      void finish(nextAnswers)
     }, 250)
   }
 
   async function finish(allAnswers: Answer[]) {
+    if (!stage) return
     setSaving(true)
     const {
       data: { user },
@@ -70,11 +69,10 @@ function DiagnosticFlow() {
       return
     }
 
-    // Réponses (scored + qualitatives)
     await supabase.from('stage_diagnostic_responses').insert(
       allAnswers.map((a) => ({
         user_id: user.id,
-        stage_id: STAGE_ID,
+        stage_id: stage.id,
         question_id: a.questionId,
         selected_value: a.value,
         protocol_id: a.protocolId,
@@ -82,15 +80,15 @@ function DiagnosticFlow() {
       })),
     )
 
-    // Scores (uniquement sur les questions scorées)
     const scored = allAnswers.filter((a) => a.protocolId !== null)
     const scores = computeDiagnosticScores(
       scored.map((a) => ({ protocolId: a.protocolId as string, value: a.value })),
+      stage.protocols.map((p) => p.id),
     )
 
     await supabase.from('stage_diagnostic_scores').insert({
       user_id: user.id,
-      stage_id: STAGE_ID,
+      stage_id: stage.id,
       diagnostic_type: diagnosticType,
       score_global: scores.scoreGlobal,
       score_by_protocol: scores.scoreByProtocol,
@@ -100,36 +98,29 @@ function DiagnosticFlow() {
 
     if (diagnosticType === 'exit') {
       await awardPoints(supabase, user.id, 'STAGE_DIAGNOSTIC_EXIT')
-      // Progression entrée → sortie
       const { data: entry } = await supabase
         .from('stage_diagnostic_scores')
         .select('score_global')
         .eq('user_id', user.id)
-        .eq('stage_id', STAGE_ID)
+        .eq('stage_id', stage.id)
         .eq('diagnostic_type', 'entry')
         .order('created_at', { ascending: true })
         .limit(1)
         .maybeSingle()
       if (entry && scores.scoreGlobal - entry.score_global > 15) {
         await awardPoints(supabase, user.id, 'STAGE_PROGRESSION_15')
-        await awardBadge(supabase, user.id, 'le-lien-influence-propre')
+        await awardBadge(supabase, user.id, stage.badges.progression)
       }
-      router.push('/mont-blanc/le-lien/fin')
+      router.push(`/mont-blanc/${stage.id}/fin`)
     } else {
-      router.push('/mont-blanc/le-lien/score')
+      router.push(`/mont-blanc/${stage.id}/score`)
     }
     router.refresh()
   }
 
   const protocolLabel =
     step.kind === 'scored'
-      ? {
-          attention: 'Attention réelle',
-          prenom: 'Prénom',
-          ecoute: 'Écoute active',
-          reconnaissance: 'Reconnaissance précise',
-          desaccord: 'Désaccord maîtrisé',
-        }[step.q.protocolId]
+      ? (protocolById(stage, step.q.protocolId)?.name ?? '')
       : 'Pour mieux te connaître'
 
   return (
@@ -162,7 +153,7 @@ function DiagnosticFlow() {
                       key={key}
                       selected={picked === key}
                       onSelect={() =>
-                        void select(
+                        select(
                           {
                             questionId: step.q.id,
                             value: option.value,
@@ -183,7 +174,7 @@ function DiagnosticFlow() {
                       key={key}
                       selected={picked === key}
                       onSelect={() =>
-                        void select({ questionId: step.q.id, value: i, protocolId: null }, key)
+                        select({ questionId: step.q.id, value: i, protocolId: null }, key)
                       }
                     >
                       <p className="font-sans text-base font-semibold text-white">{label}</p>
@@ -201,7 +192,7 @@ function DiagnosticFlow() {
   )
 }
 
-export default function LeLienDiagnosticPage() {
+export default function StageDiagnosticPage() {
   return (
     <Suspense>
       <DiagnosticFlow />

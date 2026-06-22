@@ -5,6 +5,7 @@ import { ProgressBar } from '@/components/ui/ProgressBar'
 import { ScoreDisplay } from '@/components/ui/ScoreDisplay'
 import { StreakFlame } from '@/components/ui/StreakFlame'
 import { progressToNextLevel } from '@/lib/engine/levels'
+import { STAGE_ORDER, getStage } from '@/lib/mont-blanc/stages'
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
@@ -63,13 +64,17 @@ export default async function DashboardPage() {
     supabase
       .from('stage_daily_validations')
       .select('id', { count: 'exact', head: true })
-      .eq('user_id', user.id)
-      .eq('stage_id', 'le-lien'),
+      .eq('user_id', user.id),
   ])
 
   if (!profile) redirect('/auth/login')
 
-  const progressMontBlanc = Math.round(((mbValidated ?? 0) / 21) * 100)
+  const montBlancTotalDays = STAGE_ORDER.reduce(
+    (acc, id) => acc + (getStage(id)?.durationDays ?? 0),
+    0,
+  )
+  const progressMontBlanc =
+    montBlancTotalDays > 0 ? Math.round(((mbValidated ?? 0) / montBlancTotalDays) * 100) : 0
 
   const firstName = profile.display_name?.split(' ')[0] ?? 'Forgeron'
   const daysLeft = objective?.target_at
