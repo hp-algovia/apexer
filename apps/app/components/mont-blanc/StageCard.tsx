@@ -11,6 +11,7 @@ type StageCardProps = {
   status: StageStatus
   href?: string
   progress?: number // 0-100, si en cours
+  lockedMessage?: string
 }
 
 function StatusBadge({ status }: { status: StageStatus }) {
@@ -20,7 +21,9 @@ function StatusBadge({ status }: { status: StageStatus }) {
   if (status === 'in_progress') {
     return <span className="text-feu text-xs font-medium uppercase tracking-wider">En cours</span>
   }
-  return <span className="text-fumee text-xs font-medium uppercase tracking-wider">Bientôt</span>
+  return (
+    <span className="text-fumee text-xs font-medium uppercase tracking-wider">🔒 Verrouillé</span>
+  )
 }
 
 function CardBody({
@@ -29,6 +32,7 @@ function CardBody({
   durationDays,
   status,
   progress,
+  lockedMessage,
 }: Omit<StageCardProps, 'href'>) {
   return (
     <Card className={status === 'locked' ? 'opacity-60' : 'border-feu/40'}>
@@ -42,6 +46,9 @@ function CardBody({
       <p className="text-fumee mt-3 font-mono text-xs">{durationDays} jours</p>
       {status === 'in_progress' && typeof progress === 'number' ? (
         <ProgressBar value={progress} className="mt-3" />
+      ) : null}
+      {status === 'locked' && lockedMessage ? (
+        <p className="text-fumee mt-3 text-sm">{lockedMessage}</p>
       ) : null}
     </Card>
   )

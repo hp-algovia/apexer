@@ -2,18 +2,21 @@
 
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
-import { STAGE_ID } from '@/lib/mont-blanc/le-lien'
+import { getStage } from '@/lib/mont-blanc/stages'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
+import { notFound, useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 function generateToken() {
-  // Token non devinable, sans dépendance externe
   return crypto.randomUUID().replace(/-/g, '')
 }
 
-export default function LeLienTemoinPage() {
+export default function StageTemoinPage() {
+  const params = useParams<{ stageId: string }>()
   const supabase = createClient()
+  const stage = getStage(params.stageId)
+
   const [name, setName] = useState('')
   const [token, setToken] = useState<string | null>(null)
   const [status, setStatus] = useState<string | null>(null)
@@ -21,6 +24,7 @@ export default function LeLienTemoinPage() {
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
+    if (!stage) return
     async function load() {
       const {
         data: { user },
@@ -30,7 +34,7 @@ export default function LeLienTemoinPage() {
         .from('stage_witness_requests')
         .select('witness_name, share_token, status')
         .eq('user_id', user.id)
-        .eq('stage_id', STAGE_ID)
+        .eq('stage_id', stage!.id)
         .maybeSingle()
       if (existing) {
         setName(existing.witness_name)
@@ -42,12 +46,14 @@ export default function LeLienTemoinPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  if (!stage) return notFound()
+
   const link = token
     ? `${typeof window !== 'undefined' ? window.location.origin : ''}/temoin/${token}`
     : ''
 
   async function generate() {
-    if (name.trim().length < 2) return
+    if (!stage || name.trim().length < 2) return
     setLoading(true)
     const {
       data: { user },
@@ -57,7 +63,7 @@ export default function LeLienTemoinPage() {
     const newToken = generateToken()
     const { error } = await supabase.from('stage_witness_requests').insert({
       user_id: user.id,
-      stage_id: STAGE_ID,
+      stage_id: stage.id,
       witness_name: name.trim(),
       share_token: newToken,
     })
@@ -128,7 +134,7 @@ export default function LeLienTemoinPage() {
           </Button>
         ) : null}
         <Link
-          href="/mont-blanc/le-lien/dashboard"
+          href={`/mont-blanc/${stage.id}/dashboard`}
           className="text-fumee text-center text-sm transition-colors hover:text-white"
         >
           Retour au tableau de bord

@@ -1,13 +1,16 @@
 import { RadarChart } from '@/components/mont-blanc/RadarChart'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
-import { PROTOCOL_BY_ID, LE_LIEN_PROTOCOLS } from '@/lib/data/le-lien-protocols'
-import { STAGE_ID } from '@/lib/mont-blanc/le-lien'
+import { getStage, protocolById, radarAxes } from '@/lib/mont-blanc/stages'
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 
-export default async function LeLienFinPage() {
+export default async function StageFinPage({ params }: { params: Promise<{ stageId: string }> }) {
+  const { stageId } = await params
+  const stage = getStage(stageId)
+  if (!stage) notFound()
+
   const supabase = await createClient()
   const {
     data: { user },
@@ -18,23 +21,20 @@ export default async function LeLienFinPage() {
     .from('stage_diagnostic_scores')
     .select('diagnostic_type, score_global, score_by_protocol, created_at')
     .eq('user_id', user.id)
-    .eq('stage_id', STAGE_ID)
+    .eq('stage_id', stage.id)
     .order('created_at', { ascending: false })
 
   const entry = (scores ?? []).find((s) => s.diagnostic_type === 'entry')
   const exit = (scores ?? []).find((s) => s.diagnostic_type === 'exit')
-
-  // Pas de diagnostic de sortie → le faire d'abord
-  if (!exit) redirect('/mont-blanc/le-lien/diagnostic?type=exit')
+  if (!exit) redirect(`/mont-blanc/${stage.id}/diagnostic?type=exit`)
 
   const entryByProtocol = (entry?.score_by_protocol as Record<string, number>) ?? {}
   const exitByProtocol = (exit.score_by_protocol as Record<string, number>) ?? {}
   const globalDelta = entry ? exit.score_global - entry.score_global : 0
 
-  // Protocole le plus renforcé
-  let mostImproved = LE_LIEN_PROTOCOLS[0]?.id ?? 'attention'
+  let mostImproved = stage.protocols[0]?.id ?? ''
   let bestDelta = -Infinity
-  for (const protocol of LE_LIEN_PROTOCOLS) {
+  for (const protocol of stage.protocols) {
     const delta = (exitByProtocol[protocol.id] ?? 0) - (entryByProtocol[protocol.id] ?? 0)
     if (delta > bestDelta) {
       bestDelta = delta
@@ -42,32 +42,31 @@ export default async function LeLienFinPage() {
     }
   }
 
-  // Retour témoin (anonyme)
   const { data: witnessRequest } = await supabase
     .from('stage_witness_requests')
-    .select('id, status')
+    .select('status')
     .eq('user_id', user.id)
-    .eq('stage_id', STAGE_ID)
+    .eq('stage_id', stage.id)
     .maybeSingle()
-  let witnessAnswered = false
-  if (witnessRequest?.status === 'completed') witnessAnswered = true
+  const witnessAnswered = witnessRequest?.status === 'completed'
 
-  const { data: badges } = await supabase.from('badges').select('id, name').like('key', 'le-lien-%')
+  const badgeKeys = Object.values(stage.badges)
+  const { data: badges } = await supabase.from('badges').select('id, name').in('key', badgeKeys)
   const { data: userBadges } = await supabase
     .from('user_badges')
     .select('badge_id')
     .eq('user_id', user.id)
   const unlockedIds = new Set((userBadges ?? []).map((b) => b.badge_id))
-  const unlockedLeLien = (badges ?? []).filter((b) => unlockedIds.has(b.id))
+  const unlockedStageBadges = (badges ?? []).filter((b) => unlockedIds.has(b.id))
 
   return (
     <main className="flex flex-col gap-6 px-6 py-10">
       <header>
-        <p className="text-feu text-sm font-medium uppercase tracking-wider">Étape 1 — Terminée</p>
-        <h1 className="mt-2 font-sans text-3xl font-black text-white">
-          Tu n’as pas appris à parler aux autres.
-        </h1>
-        <p className="text-fumee mt-2">Tu as appris à mieux exister dans la relation.</p>
+        <p className="text-feu text-sm font-medium uppercase tracking-wider">
+          Étape {stage.stageNumber} — Terminée
+        </p>
+        <h1 className="mt-2 font-sans text-3xl font-black text-white">{stage.finTitle}</h1>
+        <p className="text-fumee mt-2">{stage.finSubtitle}</p>
       </header>
 
       <Card>
@@ -83,7 +82,12 @@ export default async function LeLienFinPage() {
           ) : null}
         </p>
         <div className="mt-5 flex justify-center">
-          <RadarChart scores={exitByProtocol} compareScores={entryByProtocol} size={280} />
+          <RadarChart
+            axes={radarAxes(stage)}
+            scores={exitByProtocol}
+            compareScores={entryByProtocol}
+            size={280}
+          />
         </div>
         <p className="text-fumee mt-2 text-center text-xs">
           <span className="text-fumee">Gris</span> : entrée ·{' '}
@@ -93,7 +97,7 @@ export default async function LeLienFinPage() {
           <p className="mt-4 text-white">
             Protocole le plus renforcé :{' '}
             <span className="text-valide">
-              {PROTOCOL_BY_ID[mostImproved]?.name ?? mostImproved} (+{bestDelta}%)
+              {protocolById(stage, mostImproved)?.name ?? mostImproved} (+{bestDelta}%)
             </span>
           </p>
         ) : null}
@@ -110,13 +114,13 @@ export default async function LeLienFinPage() {
         </Card>
       ) : null}
 
-      {unlockedLeLien.length > 0 ? (
+      {unlockedStageBadges.length > 0 ? (
         <section>
           <p className="text-fumee mb-3 text-sm font-medium uppercase tracking-wider">
             Badges débloqués
           </p>
           <div className="grid grid-cols-2 gap-3">
-            {unlockedLeLien.map((badge) => (
+            {unlockedStageBadges.map((badge) => (
               <Card key={badge.id} className="border-prestige/60">
                 <p className="font-sans font-bold text-white">🏅 {badge.name}</p>
               </Card>
