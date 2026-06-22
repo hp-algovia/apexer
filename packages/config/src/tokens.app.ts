@@ -18,6 +18,9 @@ export const appColors: Record<string, string> = {
   valide: '#22C55E', // Vert Validé — succès, complétion
   alerte: '#EF4444', // Rouge Alerte — erreur, manqué
   prestige: '#F59E0B', // Or Prestige — badges premium
+  // Ambre / or — accomplissement, badge, prestige, fin d'étape
+  ambre: '#D4A04A',
+  'ambre-soft': 'rgba(212, 160, 74, 0.1)',
   black: '#000000',
 }
 
@@ -25,6 +28,8 @@ export const appFontFamily: Record<string, string[]> = {
   sans: ['var(--font-dm-sans)', 'DM Sans', 'system-ui', 'sans-serif'],
   body: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
   mono: ['var(--font-jetbrains-mono)', 'JetBrains Mono', 'monospace'],
+  // Display condensé — titres de programmes et d'étapes uniquement
+  display: ['var(--font-barlow)', 'Barlow Condensed', 'Impact', 'sans-serif'],
 }
 
 export const appFontSize: Record<string, FontSizeEntry> = {

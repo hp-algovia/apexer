@@ -94,7 +94,16 @@ export function BottomNav() {
     href === '/progress' ? pathname === '/progress' : pathname.startsWith(href)
 
   return (
-    <nav className="pb-safe border-acier bg-noir/95 fixed inset-x-0 bottom-0 z-20 border-t backdrop-blur">
+    <nav className="pb-safe bg-noir/95 fixed inset-x-0 bottom-0 z-20 backdrop-blur">
+      {/* Bordure haute dégradée — braise plutôt que trait plat */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-px"
+        style={{
+          background:
+            'linear-gradient(90deg, transparent 0%, rgba(255,107,53,0.4) 50%, transparent 100%)',
+        }}
+      />
       <div className="mx-auto flex max-w-md items-stretch justify-between px-2">
         {NAV_ITEMS.map((item) => {
           const active = isActive(item.href)
@@ -113,6 +122,13 @@ export function BottomNav() {
               >
                 {item.label}
               </span>
+              <span
+                aria-hidden
+                className={[
+                  'h-1 w-1 rounded-full transition-opacity',
+                  active ? 'bg-feu opacity-100 shadow-[0_0_6px_rgba(255,107,53,0.8)]' : 'opacity-0',
+                ].join(' ')}
+              />
             </Link>
           )
         })}

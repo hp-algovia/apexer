@@ -6,7 +6,7 @@ type DayGridProps = {
   className?: string
 }
 
-// Grille des jours d'une étape : vert=validé, feu=aujourd'hui, alerte=manqué, acier=futur.
+// Grille des jours — tableau de bord industriel.
 export function DayGrid({
   totalDays,
   currentDay,
@@ -23,23 +23,25 @@ export function DayGrid({
         const isValidated = validated.has(day)
         const isToday = day === currentDay && !isValidated
         const isMissed = missed.has(day) && !isValidated
+
         const cls = isValidated
-          ? 'bg-valide text-noir'
+          ? 'bg-valide/20 border-valide/40 text-valide'
           : isToday
-            ? 'bg-feu text-noir'
+            ? 'animate-pulse-logo border-feu bg-feu/15 text-feu'
             : isMissed
-              ? 'bg-alerte/80 text-white'
-              : 'bg-acier text-fumee'
+              ? 'border-alerte/30 bg-alerte/10 text-alerte'
+              : 'border-acier bg-forge text-fumee'
+
         return (
           <div
             key={day}
             className={[
-              'flex aspect-square items-center justify-center rounded-md font-mono text-xs font-bold',
+              'flex aspect-square items-center justify-center rounded-md border font-mono text-xs font-bold',
               cls,
             ].join(' ')}
             title={`Jour ${day}`}
           >
-            {day}
+            {isValidated ? '✓' : day}
           </div>
         )
       })}

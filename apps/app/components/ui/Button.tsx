@@ -10,7 +10,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 }
 
 const VARIANTS: Record<ButtonVariant, string> = {
-  primary: 'bg-feu text-white hover:bg-feu/90 shadow-glow-feu',
+  primary: 'btn-forge text-white',
   secondary: 'bg-forge text-white border border-acier hover:border-fumee',
   ghost: 'bg-transparent text-fumee hover:text-white',
   white: 'bg-white text-noir hover:bg-cendre',

@@ -1,5 +1,6 @@
 'use client'
 
+import { ForgeGlow } from '@/components/mont-blanc/ForgeGlow'
 import { RadarChart } from '@/components/mont-blanc/RadarChart'
 import { Button } from '@/components/ui/Button'
 import { getStage, protocolById, radarAxes, scoreLabel } from '@/lib/mont-blanc/stages'
@@ -93,13 +94,14 @@ export default function StageScorePage() {
 
   return (
     <main className="flex min-h-dvh flex-col items-center px-6 py-10 text-center">
+      <ForgeGlow />
       <p className="text-feu text-sm font-medium uppercase tracking-wider">Ton point de départ</p>
 
       <motion.p
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="mt-4 font-mono text-7xl font-black text-white"
+        className="text-glow-feu mt-4 font-mono text-7xl font-black text-white"
       >
         {animatedScore}%
       </motion.p>
