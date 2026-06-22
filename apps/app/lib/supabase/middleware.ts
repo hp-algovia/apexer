@@ -6,6 +6,8 @@ import { NextResponse, type NextRequest } from 'next/server'
 const PUBLIC_PATHS = ['/auth/login', '/auth/callback', '/onboarding', '/onboarding/welcome']
 
 function isPublicPath(pathname: string) {
+  // Page publique du témoin externe : accessible sans session
+  if (pathname.startsWith('/temoin/')) return true
   return PUBLIC_PATHS.includes(pathname)
 }
 

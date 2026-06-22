@@ -29,35 +29,47 @@ export default async function DashboardPage() {
 
   const today = new Date().toISOString().slice(0, 10)
 
-  const [{ data: profile }, { data: objective }, { data: todayTask }, { data: recentTasks }] =
-    await Promise.all([
-      supabase.from('profiles').select('*').eq('id', user.id).single(),
-      supabase
-        .from('objectives')
-        .select('*')
-        .eq('user_id', user.id)
-        .eq('status', 'active')
-        .order('created_at', { ascending: false })
-        .limit(1)
-        .maybeSingle(),
-      supabase
-        .from('tasks')
-        .select('*')
-        .eq('user_id', user.id)
-        .eq('scheduled_date', today)
-        .order('created_at', { ascending: false })
-        .limit(1)
-        .maybeSingle(),
-      supabase
-        .from('tasks')
-        .select('id, status, scheduled_date')
-        .eq('user_id', user.id)
-        .lte('scheduled_date', today)
-        .order('scheduled_date', { ascending: false })
-        .limit(5),
-    ])
+  const [
+    { data: profile },
+    { data: objective },
+    { data: todayTask },
+    { data: recentTasks },
+    { count: mbValidated },
+  ] = await Promise.all([
+    supabase.from('profiles').select('*').eq('id', user.id).single(),
+    supabase
+      .from('objectives')
+      .select('*')
+      .eq('user_id', user.id)
+      .eq('status', 'active')
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+    supabase
+      .from('tasks')
+      .select('*')
+      .eq('user_id', user.id)
+      .eq('scheduled_date', today)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+    supabase
+      .from('tasks')
+      .select('id, status, scheduled_date')
+      .eq('user_id', user.id)
+      .lte('scheduled_date', today)
+      .order('scheduled_date', { ascending: false })
+      .limit(5),
+    supabase
+      .from('stage_daily_validations')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', user.id)
+      .eq('stage_id', 'le-lien'),
+  ])
 
   if (!profile) redirect('/auth/login')
+
+  const progressMontBlanc = Math.round(((mbValidated ?? 0) / 21) * 100)
 
   const firstName = profile.display_name?.split(' ')[0] ?? 'Forgeron'
   const daysLeft = objective?.target_at
@@ -126,6 +138,23 @@ export default async function DashboardPage() {
             </p>
           </Card>
         )}
+      </section>
+
+      {/* Mont Blanc — point d'entrée */}
+      <section>
+        <p className="text-fumee mb-3 text-sm font-medium uppercase tracking-wider">Programme</p>
+        <Link href="/mont-blanc">
+          <Card className="border-feu/40">
+            <p className="text-feu text-sm font-medium uppercase tracking-wider">MONT BLANC</p>
+            <p className="mt-2 font-sans text-lg font-bold text-white">Programme Fondations</p>
+            <p className="text-fumee mt-1 text-sm">
+              12 semaines pour installer les bases du système.
+            </p>
+            <div className="mt-3">
+              <ProgressBar value={progressMontBlanc} />
+            </div>
+          </Card>
+        </Link>
       </section>
 
       {/* Score de la semaine */}

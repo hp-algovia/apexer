@@ -24,6 +24,18 @@ export type ContentItem = Tables<'content_library'>
 export type UserContentProgress = Tables<'user_content_progress'>
 export type DiagnosticAnswer = Tables<'diagnostic_answers'>
 
+// Mont Blanc / programmes
+export type Program = Tables<'programs'>
+export type ProgramPhase = Tables<'program_phases'>
+export type ProgramStage = Tables<'program_stages'>
+export type UserProgram = Tables<'user_programs'>
+export type StageProtocol = Tables<'stage_protocols'>
+export type StageDiagnosticResponse = Tables<'stage_diagnostic_responses'>
+export type StageDiagnosticScore = Tables<'stage_diagnostic_scores'>
+export type StageDailyValidation = Tables<'stage_daily_validations'>
+export type StageWitnessRequest = Tables<'stage_witness_requests'>
+export type StageWitnessResponse = Tables<'stage_witness_responses'>
+
 // Unions métier (reflètent les CHECK constraints du schéma)
 export type Archetype = 'explorateur' | 'batisseur' | 'executant_irregulier' | 'apexer_confirme'
 export type UserContext =
