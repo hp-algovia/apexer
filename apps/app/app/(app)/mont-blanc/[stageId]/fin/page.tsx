@@ -1,3 +1,4 @@
+import { ForgeGlow } from '@/components/mont-blanc/ForgeGlow'
 import { RadarChart } from '@/components/mont-blanc/RadarChart'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
@@ -61,6 +62,7 @@ export default async function StageFinPage({ params }: { params: Promise<{ stage
 
   return (
     <main className="flex flex-col gap-6 px-6 py-10">
+      <ForgeGlow />
       <header>
         <p className="text-feu text-sm font-medium uppercase tracking-wider">
           Étape {stage.stageNumber} — Terminée

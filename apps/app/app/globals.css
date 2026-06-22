@@ -16,6 +16,33 @@
   /* Safe areas iOS (notch + home indicator) */
   body {
     padding-top: env(safe-area-inset-top);
+    position: relative;
+  }
+
+  /* Lueur ambrée — la braise de la forge éclaire depuis le sol */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background: radial-gradient(
+      ellipse 80% 40% at 50% 100%,
+      rgba(255, 107, 53, 0.06) 0%,
+      rgba(255, 107, 53, 0) 70%
+    );
+  }
+
+  /* Grain — texture « métal brossé » qui casse le digital plat */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
   }
 }
 
@@ -30,5 +57,30 @@
   }
   .scrollbar-none::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Halo de chaleur derrière les gros chiffres */
+  .text-glow-feu {
+    text-shadow: 0 0 40px rgba(255, 107, 53, 0.3);
+  }
+}
+
+@layer components {
+  /* CTA forgé : relief, lumière haute, glow, ombre */
+  .btn-forge {
+    background: linear-gradient(180deg, #ff8f65 0%, #ff6b35 40%, #cc5529 100%);
+    box-shadow:
+      0 1px 0 0 rgba(255, 143, 101, 0.3) inset,
+      0 4px 16px rgba(255, 107, 53, 0.25),
+      0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+  .btn-forge:hover:not(:disabled) {
+    box-shadow:
+      0 1px 0 0 rgba(255, 143, 101, 0.4) inset,
+      0 6px 24px rgba(255, 107, 53, 0.35),
+      0 2px 4px rgba(0, 0, 0, 0.4);
+  }
+  .btn-forge:active:not(:disabled) {
+    background: linear-gradient(180deg, #ff6b35 0%, #cc5529 100%);
   }
 }

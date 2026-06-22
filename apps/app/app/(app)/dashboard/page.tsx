@@ -1,6 +1,7 @@
 import { ApexerLogoAnimated } from '@/components/logo/ApexerLogoAnimated'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
+import { CardPrimary } from '@/components/ui/CardPrimary'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { ScoreDisplay } from '@/components/ui/ScoreDisplay'
 import { StreakFlame } from '@/components/ui/StreakFlame'
@@ -119,7 +120,7 @@ export default async function DashboardPage() {
           Ta tâche du jour
         </p>
         {todayTask ? (
-          <Card className="border-feu/40">
+          <CardPrimary>
             <p className="font-sans text-lg font-bold text-white">{todayTask.title}</p>
             {todayTask.micro_script ? (
               <p className="text-fumee mt-2 text-sm">{todayTask.micro_script}</p>
@@ -134,7 +135,7 @@ export default async function DashboardPage() {
                 <Button fullWidth>COMMENCER</Button>
               </Link>
             )}
-          </Card>
+          </CardPrimary>
         ) : (
           <Card className="border-dashed">
             <p className="text-fumee">
@@ -149,16 +150,18 @@ export default async function DashboardPage() {
       <section>
         <p className="text-fumee mb-3 text-sm font-medium uppercase tracking-wider">Programme</p>
         <Link href="/mont-blanc">
-          <Card className="border-feu/40">
-            <p className="text-feu text-sm font-medium uppercase tracking-wider">MONT BLANC</p>
-            <p className="mt-2 font-sans text-lg font-bold text-white">Programme Fondations</p>
+          <CardPrimary>
+            <p className="font-display text-3xl font-extrabold uppercase tracking-tight text-white">
+              Mont Blanc
+            </p>
+            <p className="text-fumee mt-1 text-sm">Programme Fondations</p>
             <p className="text-fumee mt-1 text-sm">
               12 semaines pour installer les bases du système.
             </p>
             <div className="mt-3">
               <ProgressBar value={progressMontBlanc} />
             </div>
-          </Card>
+          </CardPrimary>
         </Link>
       </section>
 

@@ -51,7 +51,9 @@ export default async function MontBlancPage() {
         <p className="text-feu text-sm font-medium uppercase tracking-wider">
           {STAGES['le-lien']!.programId}
         </p>
-        <h1 className="mt-1 font-sans text-3xl font-black text-white">MONT BLANC</h1>
+        <h1 className="font-display mt-1 text-5xl font-extrabold uppercase tracking-tight text-white">
+          MONT BLANC
+        </h1>
         <p className="text-fumee mt-1">Programme Fondations · 12 semaines</p>
         <ProgressBar value={globalProgress} className="mt-4" />
         <p className="text-fumee mt-2 font-mono text-xs">{globalProgress}% du programme</p>

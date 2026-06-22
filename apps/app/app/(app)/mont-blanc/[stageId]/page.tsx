@@ -31,7 +31,9 @@ export default async function StageIntroPage({ params }: { params: Promise<{ sta
       <p className="text-feu text-sm font-medium uppercase tracking-wider">
         Étape {stage.stageNumber}
       </p>
-      <h1 className="mt-2 font-sans text-5xl font-black text-white">{stage.name}</h1>
+      <h1 className="font-display mt-2 text-6xl font-extrabold uppercase tracking-tight text-white">
+        {stage.name}
+      </h1>
       <p className="text-fumee mt-2 text-lg">{stage.subtitle}</p>
 
       <div className="mt-8 flex flex-1 flex-col gap-4 text-white">
